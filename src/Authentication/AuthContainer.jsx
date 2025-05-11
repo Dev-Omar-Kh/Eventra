@@ -3,7 +3,7 @@ import DmButton from '../Components/Dark-Mode/DmButton';
 import TrButton from '../Components/Translate/TrButton';
 import { useTranslation } from 'react-i18next';
 
-import authBg from '../Assets/images/auth-bg.jpg';
+import authBg from '../Assets/Images/auth-bg.jpg';
 import { motion } from 'framer-motion';
 import Animations from '../Animations/Animations';
 import Logo from '../Components/Logo/Logo';
