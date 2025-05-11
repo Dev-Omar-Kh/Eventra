@@ -1,0 +1,63 @@
+{
+
+    "homeWord": "الرئيسية",
+    "eventsWord": "الفعاليات",
+    "adminPanelWord": "لوحة التحكم",
+    "loginWord": "تسجيل الدخول",
+    "registerWord": "تسجيل",
+    "logoutWord": "تسجيل الخروج",
+    "signUpWord": "إنشاء حساب",
+    "arWord": "العربية",
+    "enWord": "الانجليزية",
+    "lightMode": "الوضع الفاتح",
+    "darkMode": "الوضع الداكن",
+    "languageWord": "اللغة",
+    "createYourAccountWord": "إنشاء حسابك",
+    "nameWord": "الاسم",
+    "emailWord": "البريد الإلكتروني",
+    "passwordWord": "كلمة المرور",
+    "confirmPasswordWord": "تأكيد كلمة المرور",
+    "namePlaceholderWord": "أدخل اسمك",
+    "emailPlaceholderWord": "أدخل بريدك الإلكتروني",
+    "passwordPlaceholderWord": "أدخل كلمة المرور",
+    "confirmPasswordPlaceholderWord": "تأكيد كلمة المرور",
+    "hasAccountWord": "هل لديك حساب بالفعل؟",
+    "forgotPasswordWord": "نسيت كلمة المرور؟",
+    "welcomeBackWord": "مرحبًا بعودتك!",
+    "doNotHaveAccount": "ليس لديك حساب بعد؟",
+    "createAccountWord": "إنشاء حساب",
+    "bookWord": "احجز",
+    "heroTitle": "تجربتك القادمة اليوم",
+    "heroSlogan": "اكتشف واحجز فعاليات رائعة حولك. من الحفلات الموسيقية إلى المؤتمرات، نوفر لك كل ما تحتاجه.",
+    "exploreEventsWord": "استكشف الفعاليات",
+    "totalEventsWord": "كل الفعاليات",
+    "usersRatesWord": "تقييمات المستخدمين",
+    "totalReservedTicketsWord": "إجمالي التذاكر المحجوزة",
+    "presentCountries": "موجودون في البلدان",
+    "weOfferWord": "ماذا نقدم",
+
+    "conferencesWord": "المؤتمرات",
+    "conferencesSlogan": "تجمعات رسمية لمناقشة مواضيع متخصصة مثل التكنولوجيا أو فرص العمل.",
+    
+    "showsPerformancesWord": "المسرحيات أو العروض",
+    "showsPerformancesSlogan": "عروض فنية تُقدم على المسرح تشمل تمثيل، رقص أو كوميديا.",
+    
+    "exhibitionsWord": "المعارض",
+    "exhibitionsSlogan": "فعاليات تُعرض فيها منتجات أو أعمال فنية للجمهور أو للبيع.",
+    
+    "festivalsWord": "المهرجانات",
+    "festivalsSlogan": "احتفالات كبيرة تشمل عروض وفقرات ترفيهية وثقافية.",
+    
+    "coursesWorkshopsWord": "الدورات التدريبية وورش العمل",
+    "coursesWorkshopsSlogan": "فعاليات تعليمية تهدف إلى تطوير المهارات أو التعلم العملي.",
+    
+    "musicConcertsWord": "الحفلات الموسيقية",
+    "musicConcertsSlogan": "فعاليات ترفيهية يتم فيها تقديم عروض موسيقية حية أمام جمهور.",
+
+    "latestEventsWord": "احدث الفعاليات",
+    "allEventsWord": "كل الفعاليات",
+    "footerSentience": "اكتشف فعاليات وورش عمل وحفلات مذهلة بالقرب منك من خلال إيفينترا. احجز تجربتك القادمة بسهولة وتواصل مع مجتمعك.",
+    "footerName": "عمر خالد",
+    "footerMsg": "كل الحقوق محفوظة"
+
+}

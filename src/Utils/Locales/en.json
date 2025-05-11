@@ -1,0 +1,63 @@
+{
+
+    "homeWord": "Home",
+    "eventsWord": "Events",
+    "adminPanelWord": "Admin Panel",
+    "loginWord": "Login",
+    "logoutWord": "Logout",
+    "registerWord": "Register",
+    "signUpWord": "Sign Up",
+    "arWord": "Arabic",
+    "enWord": "English",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "languageWord": "Language",
+    "createYourAccountWord": "Create your account",
+    "nameWord": "Name",
+    "emailWord": "Email",
+    "passwordWord": "Password",
+    "confirmPasswordWord": "Confirm Password",
+    "namePlaceholderWord": "Enter your name",
+    "emailPlaceholderWord": "Enter your email",
+    "passwordPlaceholderWord": "Enter your password",
+    "confirmPasswordPlaceholderWord": "Confirm your password",
+    "hasAccountWord": "Already have an account?",
+    "forgotPasswordWord": "Forgot Password?",
+    "welcomeBackWord": "Welcome back!",
+    "doNotHaveAccount": "You don't have an account yet?",
+    "createAccountWord": "Create account",
+    "bookWord": "Book",
+    "heroTitle": "Your Next Experience Today",
+    "heroSlogan": "Discover and book amazing events happening around you. From concerts to conferences, we've got you covered.",
+    "exploreEventsWord": "Explore events",
+    "totalEventsWord": "Total events",
+    "usersRatesWord": "Users rates",
+    "totalReservedTicketsWord": "Total reserved tickets",
+    "presentCountries": "Present in countries",
+    "weOfferWord": "What we offer",
+
+    "conferencesWord": "Conferences",
+    "conferencesSlogan": "Formal gatherings to discuss specialized topics like technology or job opportunities.",
+    
+    "showsPerformancesWord": "Theater Shows or Performances",
+    "showsPerformancesSlogan": "Artistic performances on stage including acting, dance, or comedy.",
+    
+    "exhibitionsWord": "Exhibitions",
+    "exhibitionsSlogan": "Events showcasing products or artworks to the public or for sale.",
+    
+    "festivalsWord": "Festivals",
+    "festivalsSlogan": "Large celebrations featuring entertainment and cultural activities.",
+    
+    "coursesWorkshopsWord": "Training Courses & Workshops",
+    "coursesWorkshopsSlogan": "Educational events focused on skill development or hands-on learning.",
+    
+    "musicConcertsWord": "Music Concerts",
+    "musicConcertsSlogan": "Entertainment events featuring live music performances for an audience.",
+
+    "latestEventsWord": "Latest events",
+    "allEventsWord": "All Events",
+    "footerSentience": "Discover exciting events, workshops, and gatherings around you with Eventra. Book your next experience easily and connect with your community.",
+    "footerName": "Omar Khaled",
+    "footerMsg": "All Rights Reserved"
+
+}

@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+
+    --red-color: #ff0000;
+    --blue-color: #305FA2;
+    --gray-color: #adb5bd;
+    --salt-color: #F7F8FA;
+    --black-color: #2D2D2D;
+    --white-color: #FFFFFF;
+    --green-color: #70e000;
+    --yellow-color: #E1B96D;
+    --gray-color-1: #dee2e6;
+    --gray-color-2: #6c757d;
+    --gray-color-3: #e9ecef;
+    --black-color-2: #383838;
+
+    --red-opacity-color: rgba(255, 0, 0, 0.1);
+    --green-opacity-color: rgba(112, 224, 0, 0.1);
+    --yellow-opacity-color: rgba(225, 185, 109, 0.1);
+    --white-opacity-color: rgba(255, 255, 255, 0.75);
+    --salt-opacity-color: rgba(247, 248, 250, 0.9);
+    --light-black-opacity-color-left: linear-gradient(to left, rgba(30, 30, 30, 0.5), rgba(30, 30, 30, 0.95));
+    --light-black-opacity-color-right: linear-gradient(to right, rgba(30, 30, 30, 0.5), rgba(30, 30, 30, 0.95));
+    --gray-opacity-color-3: rgba(233, 236, 239, 0.5);
+    --blue-opacity-color: rgba(48, 95, 162, 0.98);
+    --light-blue-opacity-color: rgba(48, 95, 162, 0.92);
+    --black-opacity-color: rgba(45, 45, 45, 0.25);
+    --dark-black-opacity-color: rgba(45, 45, 45, 0.35);
+
+}
+
+html.dark {
+
+    --red-color: #ff6b6b;
+    --blue-color: #4c84ff;
+    --gray-color: #adb5bd;
+    --salt-color: #1e1e1e;
+    --black-color: #f1f1f1;
+    --white-color: #121212;
+    --green-color: #a8e87c;
+    --yellow-color: #f0cd7b;
+    --gray-color-1: #3a3a3a;
+    --gray-color-2: #ced4da;
+    --gray-color-3: #2f2f2f;
+    --black-color-2: #e9ecef;
+
+    --red-opacity-color: rgba(255, 107, 107, 0.1);
+    --green-opacity-color: rgba(168, 232, 124, 0.1);
+    --yellow-opacity-color: rgba(240, 205, 123, 0.1);
+    --white-opacity-color: rgba(255, 255, 255, 0.5);
+    --salt-opacity-color: rgba(30, 30, 30, 0.9);
+    --light-salt-opacity-color: rgba(30, 30, 30, 0.95);
+    --light-black-opacity-color-left: linear-gradient(to left, rgba(30, 30, 30, 0.5), rgba(30, 30, 30, 0.95));
+    --light-black-opacity-color-right: linear-gradient(to right, rgba(30, 30, 30, 0.5), rgba(30, 30, 30, 0.95));
+    --dark-salt-opacity-color: rgba(30, 30, 30, 0.99);
+    --gray-opacity-color-3: rgba(47, 47, 47, 0.5);
+    --blue-opacity-color: rgba(76, 132, 255, 0.96);
+    --black-opacity-color: rgba(241, 241, 241, 0.05);
+
+}
+
+html[lang="en"] *,
+html[lang="en"] {
+
+    font-family: "Manrope", sans-serif;
+
+}
+
+html[lang="ar"] *,
+html[lang="ar"] {
+
+    font-family: "Cairo", sans-serif !important;
+
+}
+
+::-webkit-scrollbar {
+
+    width: 5px;
+    background-color: var(--white-color);
+
+}
+
+::-webkit-scrollbar-thumb {
+
+    background-color: var(--blue-color);
+
+}
+
+body {
+
+    width: 100%;
+    background-color: var(--salt-color);
+
+}
+
+.active {
+
+    background-color: var(--blue-color);
+    color: var(--white-color);
+
+}
+
+.p_x{
+    padding-inline: 4.5%;
+}
+
+.hidden_scroll {
+
+    &::-webkit-scrollbar {
+
+        display: none;
+
+    }
+
+}
+
+.top-mixed-110{
+
+    top: calc(100% + 0.625rem);
+    z-index: 50;
+
+}
+
+.custom-start{
+
+    inset-inline-start: -3.375rem;
+
+}
+
+.custom-scroll::-webkit-scrollbar{
+
+    background-color: var(--gray-color-3);
+
+}
+
+/* ====== responsive-style ====== */
+
+@media only screen and (max-width: 880px) {
+
+    .nav_height {
+    
+        height: calc(100dvh - 5.5625rem);
+        padding-inline: 4.5%;
+        overflow-y: auto;
+
+    }
+
+    /* .top-mixed-110{
+
+        top: calc(-100% - 3.65rem);
+
+    } */
+
+}
