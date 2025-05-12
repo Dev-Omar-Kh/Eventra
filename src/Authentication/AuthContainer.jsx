@@ -47,6 +47,8 @@ export default function AuthContainer({children}) {
                         <Logo width={'max-w-full'} height={'h-24 object-cover'} />
                     </div>
 
+                    {/* add-form */}
+
                     {children}
 
                 </motion.div>
