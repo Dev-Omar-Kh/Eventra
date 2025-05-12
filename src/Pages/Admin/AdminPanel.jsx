@@ -4,7 +4,7 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import Title from './../../Components/Title/Title';
 import Table from '../../Components/Table/Table';
-import warningSVG from '../../assets/JSON/warning.json';
+import warningSVG from '../../Assets/JSON/warning.json';
 import WarnPopUp from './../../Components/Pop-Up/WarnPopUp';
 
 export default function AdminPanel() {
