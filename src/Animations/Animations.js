@@ -54,6 +54,7 @@ const Animations = {
     toTopVariants: {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0, transition: {...commonTransition} },
+        exit: { opacity: 0, y: 50, transition: {...commonTransition} },
     },
 
     scaleVariants: {

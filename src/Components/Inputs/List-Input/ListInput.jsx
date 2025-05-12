@@ -112,13 +112,14 @@ export default function ListInput({ id, label, placeHolder, options, onSelect, o
                         initial='hidden' animate='visible' exit='exit'
                         className='
                             absolute list-position w-full max-h-48
-                            rounded-md border border-solid border-[var(--gray-color-3)] shadow-[0_0px_10px_var(--gray-color-3)]
-                            bg-[var(--white-color)] overflow-hidden z-40
+                            rounded-md border border-solid border-[var(--gray-color-3)] 
+                            shadow-[0_0px_10px_var(--light-black-opacity-color)] 
+                            bg-[var(--salt-color)] overflow-hidden z-40
                         '
                     >
 
                         {filteredOptions.length > 0 ? 
-                            <ul className="w-full max-h-48 overflow-auto">
+                            <ul className="w-full max-h-48 overflow-auto custom-scroll-2">
 
                                 {filteredOptions.map((option, index) => (
 
@@ -132,7 +133,7 @@ export default function ListInput({ id, label, placeHolder, options, onSelect, o
                                             duration-300 hover:bg-[var(--blue-color)] hover:text-[var(--white-color)]
                                         `}
                                     >
-                                        {option}
+                                        {t(option)}
                                     </li>
 
                                 ))}

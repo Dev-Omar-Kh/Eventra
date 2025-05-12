@@ -58,6 +58,31 @@
     "allEventsWord": "All Events",
     "footerSentience": "Discover exciting events, workshops, and gatherings around you with Eventra. Book your next experience easily and connect with your community.",
     "footerName": "Omar Khaled",
-    "footerMsg": "All Rights Reserved"
+    "footerMsg": "All Rights Reserved",
+
+    "eventsManagementWord": "Events Management",
+    "addEventWord": "Add Event",
+    "eventWord": "Event",
+    "dateWord": "Date",
+    "locationWord": "Location",
+    "statusWord": "Status",
+    "viewEventWord": "View Events",
+    "actionsWord": "Actions",
+
+    "uploadImageWord": "Upload Event Image",
+    "eventNameWord": "Event Name",
+    "eventNamePlaceholder": "Enter the event name",
+    "locationPlaceholder": "Enter the event location",
+    "chooseEventType": "Event Type",
+    "chooseEventTypePlaceholder": "Choose event type",
+    "eventDateWord": "Event Date",
+    "numOfSeatsWord": "Number of Seats",
+    "numOfSeatsPlaceholder": "Enter the number of seats",
+    "eventSloganWord": "Event Slogan",
+    "eventSloganPlaceholder": "Enter the event slogan",
+    "eventDescriptionWord": "Event Description",
+    "eventDescriptionPlaceholder": "Enter the event description",
+    "agendaItemWord": "Agenda Detail",
+    "agendaPlaceholderWord": "Enter the agenda detail"
 
 }

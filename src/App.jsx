@@ -9,6 +9,7 @@ import Events from './Pages/Events/Events';
 import SingleEvent from './Pages/Single-Event/SingleEvent';
 import SubLayout from './Layout/SubLayout';
 import AdminPanel from './Pages/Admin/AdminPanel';
+import AddEvent from './Pages/Admin/AddEvent';
 
 const routes = createHashRouter([
 
@@ -16,13 +17,14 @@ const routes = createHashRouter([
 
         {path: '/', element: <Home />},
 
-        {path: 'events', element: <SubLayout />, children: [
+        {path: '/events', element: <SubLayout />, children: [
             {path: '', element: <Events />},
             {path: 'single-event/:id', element: <SingleEvent />},
         ]},
 
-        {path: 'admin-panel', element: <SubLayout />, children: [
-            {path: '', element: <AdminPanel />}
+        {path: '/admin-panel', element: <SubLayout />, children: [
+            {path: '', element: <AdminPanel />},
+            {path: 'add-event', element: <AddEvent />},
         ]}
 
     ]},

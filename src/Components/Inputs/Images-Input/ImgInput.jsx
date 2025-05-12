@@ -29,7 +29,7 @@ export default function ImgInput({label, onChange, onBlur, value}) {
         <label 
             htmlFor="img" 
             className={`
-                w-full p-2.5 bg-[var(--white-color)] rounded-md border-2 border-dashed
+                w-full p-2.5 rounded-md border-2 border-dashed
                 flex items-center justify-center duration-300 cursor-pointer
                 ${fileValue ? 'border-[var(--blue-color)]' : 'border-[var(--gray-color-2)]'}
             `}

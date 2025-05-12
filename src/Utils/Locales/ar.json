@@ -58,6 +58,31 @@
     "allEventsWord": "كل الفعاليات",
     "footerSentience": "اكتشف فعاليات وورش عمل وحفلات مذهلة بالقرب منك من خلال إيفينترا. احجز تجربتك القادمة بسهولة وتواصل مع مجتمعك.",
     "footerName": "عمر خالد",
-    "footerMsg": "كل الحقوق محفوظة"
+    "footerMsg": "كل الحقوق محفوظة",
+
+    "eventsManagementWord": "ادارة الفعاليات",
+    "addEventWord": "اضافة فعالية",
+    "eventWord": "الفعالية",
+    "dateWord": "التاريخ",
+    "locationWord": "الموقع",
+    "statusWord": "الحالة",
+    "viewEventWord": "عرض الفعالية",
+    "actionsWord": "الاجراءات",
+
+    "uploadImageWord": "تحميل صورة الفعالية",
+    "eventNameWord": "اسم الفعالية",
+    "eventNamePlaceholder": "أدخل اسم الفعالية",
+    "locationPlaceholder": "أدخل موقع الفعالية",
+    "chooseEventType": "نوع الفعالية",
+    "chooseEventTypePlaceholder": "اختر نوع الفعالية",
+    "eventDateWord": "تاريخ الفعالية",
+    "numOfSeatsWord": "عدد المقاعد",
+    "numOfSeatsPlaceholder": "أدخل عدد المقاعد",
+    "eventSloganWord": "شعار الفعالية",
+    "eventSloganPlaceholder": "أدخل شعار الفعالية",
+    "eventDescriptionWord": "وصف الفعالية",
+    "eventDescriptionPlaceholder": "أدخل وصف الفعالية",
+    "agendaItemWord": "تفاصيل الأجندة",
+    "agendaPlaceholderWord": "أدخل تفاصيل الأجندة"
 
 }

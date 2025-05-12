@@ -16,7 +16,7 @@ export default function Filter() {
         'festivalsWord',
         'coursesWorkshopsWord',
         'musicConcertsWord',
-    ]
+    ];
 
     // ====== handle-outside-click ====== //
 
