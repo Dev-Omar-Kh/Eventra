@@ -2,6 +2,7 @@
 
     "homeWord": "Home",
     "eventsWord": "Events",
+    "bookedEventsWord": "Booked Events",
     "adminPanelWord": "Admin Panel",
     "loginWord": "Login",
     "logoutWord": "Logout",
@@ -66,7 +67,7 @@
     "dateWord": "Date",
     "locationWord": "Location",
     "statusWord": "Status",
-    "viewEventWord": "View Events",
+    "viewEventsWord": "View Events",
     "actionsWord": "Actions",
 
     "uploadImageWord": "Upload Event Image",
@@ -83,6 +84,92 @@
     "eventDescriptionWord": "Event Description",
     "eventDescriptionPlaceholder": "Enter the event description",
     "agendaItemWord": "Agenda Detail",
-    "agendaPlaceholderWord": "Enter the agenda detail"
+    "agendaPlaceholderWord": "Enter the agenda detail",
+
+    "emailRequiredWord": "Email is required",
+    "emailInvalidWord": "Invalid email address",
+    "passwordRequiredWord": "Password is required",
+    "nameRequiredWord": "Name is required",
+    "passwordMinWord": "Password must be at least 6 characters",
+    "passwordMustMatchWord": "Passwords must match",
+    "confirmPasswordRequiredWord": "Confirm password is required",
+
+    "loginErrorMsg": "Incorrect email or password",
+    "loginWelcomeMessage": "Welcome, {{name}}",
+    "signUpWelcomeMessage": "Welcome {{name}}, Your account created successfully",
+    "signUpError": "Unexpected error",
+
+    "errorFetchMessage": "Error on fetching data",
+    "noEventsYetMessage": "there's no events yet",
+
+    "viewEventWord": "View Event",
+
+    "imageTypeMsg": "Must be a valid image file",
+    "imageRequiredMsg": "Image is required",
+
+    "nameMinMsg": "Name must be at least 3 characters",
+    "nameMaxMsg": "Name must be less than 100 characters",
+    "nameRequiredMsg": "Name is required",
+
+    "locationRequiredMsg": "Location is required",
+
+    "typeRequiredMsg": "Type is required",
+
+    "dateRequiredMsg": "Date is required",
+
+    "seatsTypeMsg": "Seats must be a number",
+    "seatsIntegerMsg": "Seats must be an integer",
+    "seatsMinMsg": "There must be at least one seat",
+    "seatsRequiredMsg": "Seats number is required",
+
+    "sloganRequiredMsg": "Slogan is required",
+
+    "descriptionRequiredMsg": "Description is required",
+
+    "agendaRequiredMsg": "Agenda is required",
+    "agendaMinMsg": "At least one agenda item is required",
+    "agendaItemRequiredMsg": "Agenda item can't be empty",
+
+    "noOptionsMatched": "No options matched",
+
+    "eventAddedSuccessfullyMsg": "Event added successfully",
+    "errorAddEventMsg": "Something is error",
+
+    "updateEventWord": "Update Event",
+    "updateImageWord": "Update Image",
+    "loadingWord": "Loading...",
+
+    "eventUpdatedSuccessfullyMsg": "Event updated successfully",
+    "errorUpdateEventMsg": "Error on updating event",
+
+    "deleteEventTitle": "Delete Event",
+    "deleteEventMessage": "Are you sure you want to delete this Event? This action cannot be undone.",
+    "confirmWord": "Confirm",
+    "cancelWord": "Cancel",
+
+    "eventDeletedSuccessMsg": "Event deleted successfully",
+    "failedDeleteEventMsg": "Failed delete this event",
+
+    "deleteBookedEventTitle": "Delete booking",
+    "deleteBookedEventMessage": "Are you sure you want to delete this Booking? This action cannot be undone.",
+    "eventBookedDeletedSuccessMsg": "Event booking deleted successfully",
+    "failedDeleteBookedEventMsg": "Failed deleting booking event",
+
+    "noEventsBookedYet" :"No events booked yet",
+    "errorTableMsg": "Error on fetching data",
+
+    "eventBookedSuccessfully": "Event booked successfully",
+    "failedBookEvent": "Failed book event",
+
+    "bookNowWord": "Book Now",
+    "bookedWord": "Booked",
+
+    "outOfStockWord": "Tickets sold out",
+
+    "authErrorMsg": "You must log in first.",
+
+    "errorPageMsg": "Sorry, this page isn’t available. It may have been deleted, moved, or you don’t have permission to view it.",
+
+    "goToHomeWord": "Go to home page"
 
 }

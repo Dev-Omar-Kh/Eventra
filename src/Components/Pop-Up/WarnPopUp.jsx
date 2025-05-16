@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { PropTypes } from 'prop-types';
 import Animations from '../../Animations/Animations';
 
-export default function WarnPopUp({ isOpen, onClose, onConfirm, title, message }) {
+export default function WarnPopUp({ isOpen, onClose, onConfirm, title, message, isRed }) {
 
     const { t } = useTranslation();
 
@@ -18,7 +18,7 @@ export default function WarnPopUp({ isOpen, onClose, onConfirm, title, message }
                 <motion.div
                     variants={Animations.parentVariants} initial="hidden" animate="visible" exit="exit"
                     className="
-                        w-full h-full common-p fixed inset-0 z-50 
+                        w-full h-full py-[3.125rem] px-[4.5%] fixed inset-0 z-50 
                         flex items-center justify-center bg-[var(--darker-black-opacity-color)]
                     "
                 >
@@ -65,10 +65,12 @@ export default function WarnPopUp({ isOpen, onClose, onConfirm, title, message }
 
                             <button
                                 onClick={onConfirm}
-                                className="
+                                className={`
                                     px-4 py-1 text-base font-medium 
-                                    text-[var(--white-color)] bg-[var(--red-color)] rounded-md cursor-pointer
-                                "
+                                    text-[var(--salt-color)] dark:text-[var(--black-color-2)] 
+                                    rounded-md cursor-pointer
+                                    ${isRed ? 'bg-[var(--red-color)]' : 'bg-[var(--blue-color)]'}
+                                `}
                             >
                                 {t('confirmWord')}
                             </button>

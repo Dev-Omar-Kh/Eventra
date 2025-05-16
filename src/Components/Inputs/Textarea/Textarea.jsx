@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 
-export default function Textarea({id, label, placeHolder, value, onChange, onBlur}) {
+export default function Textarea({id, label, placeHolder, value, onChange, onBlur, ValidationError}) {
 
     const {t} = useTranslation();
 
@@ -26,12 +26,15 @@ export default function Textarea({id, label, placeHolder, value, onChange, onBlu
 
             <label 
                 className={`
-                    text-base font-medium 
+                    flex items-center justify-between gap-1.5 text-base font-medium 
                     ${hasValue ? 'text-[var(--blue-color)]' : 'text-[var(--gray-color-2)]'} 
                     duration-300 group-focus-within:text-[var(--blue-color)]
                 `} 
                 htmlFor={id}
-            >{t(label)} :</label>
+            >
+                <p>{t(label)} :</p>
+                {ValidationError && <p className='text-xs text-[var(--red-color)]'>* {ValidationError}</p>}
+            </label>
 
             <textarea 
                 id={id} placeholder={t(placeHolder)}

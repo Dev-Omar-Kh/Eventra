@@ -2,14 +2,30 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { GoHome } from 'react-icons/go';
 import { useTranslation } from 'react-i18next';
-import { MdOutlineEventNote } from 'react-icons/md';
+import { MdBookmarkBorder, MdOutlineEventNote } from 'react-icons/md';
 import { IoSettingsOutline } from 'react-icons/io5';
 import Actions from './Actions';
 import Logo from '../Logo/Logo';
+import { useSelector } from 'react-redux';
+import { jwtDecode } from 'jwt-decode';
 
 export default function Header() {
 
     const {t} = useTranslation();
+    const token = useSelector(state => state.auth.token);
+
+    // ====== check-user-role ====== //
+
+    let role = null;
+
+    if (token) {
+        try {
+            const decodedToken = jwtDecode(token);
+            role = decodedToken?.role;
+        } catch (error) {
+            console.error('Invalid token:', error);
+        }
+    }
 
     // ====== nav-bar-data ====== //
 
@@ -17,9 +33,17 @@ export default function Header() {
 
         {id: 1, endpoint: '/', name: 'homeWord', icon: <GoHome />},
         {id: 2, endpoint: '/events', name: 'eventsWord', icon: <MdOutlineEventNote />},
+        {id: 4, endpoint: '/booked-events', name: 'bookedEventsWord', icon: <MdBookmarkBorder />},
         {id: 3, endpoint: '/admin-panel', name: 'adminPanelWord', icon: <IoSettingsOutline />},
 
     ];
+
+    const filteredNavBarData = navBarData.filter(link => {
+        if (link.endpoint === '/admin-panel') {
+            return role === 'admin';
+        }
+        return true;
+    });
 
     // ====== open-close-nav ====== //
 
@@ -68,10 +92,10 @@ export default function Header() {
 
                 <ul className='flex items-center gap-2.5 max-[881px]:flex-col max-[881px]:w-full'>
 
-                    {navBarData.map(link => <NavLink 
+                    {filteredNavBarData.map(link => <NavLink 
                         to={link.endpoint} key={link.id}
                         className={`
-                            px-5 py-2.5 rounded-md hover:bg-[var(--blue-color)] hover:text-[var(--salt-color)] duration-300
+                            p-2.5 rounded-md hover:bg-[var(--blue-color)] hover:text-[var(--salt-color)] duration-300
                             text-[var(--gray-color-2)] max-[881px]:w-full
                         `}
                     >

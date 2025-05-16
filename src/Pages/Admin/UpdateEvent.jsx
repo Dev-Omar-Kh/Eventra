@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import Input from '../../Components/Inputs/Manual-Inputs/Input'
+import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import Input from '../../Components/Inputs/Manual-Inputs/Input';
 import Textarea from './../../Components/Inputs/Textarea/Textarea';
 import ImgInput from './../../Components/Inputs/Images-Input/ImgInput';
 import { useTranslation } from 'react-i18next';
@@ -9,18 +10,22 @@ import Animations from '../../Animations/Animations';
 import ListInput from './../../Components/Inputs/List-Input/ListInput';
 import DateInput from '../../Components/Inputs/Date-Input/DateInput';
 import Title from './../../Components/Title/Title';
-import { addNewEvent, Axios, getAllEvents } from '../../API/Api';
+import { Axios, getAllEvents } from '../../API/Api';
 import { useQuery } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { eventValidationSchema } from '../../Validations/eventValidation';
-import { useNavigate } from 'react-router-dom';
 import ResponsePage from '../../Components/Status-Page/ResponsePage';
 import { PacmanLoader } from 'react-spinners';
+import FullError from '../../Components/Error/FullError';
+import errorSVG from '../../Assets/JSON/wrong.json';
+import { TfiReload } from 'react-icons/tfi';
 
-export default function AddEvent() {
+export default function UpdateEvent() {
 
     const {t} = useTranslation();
+    const {id} = useParams();
+    const navigate = useNavigate();
 
     // ====== handle-agenda-items ====== //
 
@@ -42,77 +47,72 @@ export default function AddEvent() {
 
     };
 
-    // ====== get-all-events-types-data ====== //
-    
+    // ====== get-one-event-data ====== //
+
     const getApiData = async() => {
+        const {data} = await Axios.get(`${getAllEvents}/${id}`);
+        return data
+    }
+
+    const { data, isError, isLoading } = useQuery({queryKey: ["getUpdateEvent", id], queryFn: getApiData});
+
+    // ====== get-all-events-types-data ====== //
+
+    const getAllTypes = async() => {
         const {data} = await Axios.get(`${getAllEvents}`);
         return data
     }
 
-    const { data } = useQuery({queryKey: ["getAllTypes"], queryFn: getApiData});
+    const { data: types } = useQuery({queryKey: ["getAllTypes"], queryFn: getAllTypes});
 
-    const filtersTypes = data?.types || [];
+    const filtersTypes = types?.types || [];
 
     // ====== setup-formik ====== //
 
-    const navigate = useNavigate();
-
     const [errMsg, setErrMsg] = useState(null);
     const [successMsg, setSuccessMsg] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isUpdateLoading, setIsUpdateLoading] = useState(false);
 
-    const values = {
-        image: null,
-        name: '',
-        location: '',
-        type: '',
-        date: '',
-        seatsNumber: '',
-        slogan: '',
-        description: '',
-        agendaDetails: ['',''],
+    const values = {  
+        image: data?.image || '',  
+        img_preview: data?.image || '',  
+        name: data?.name || '',  
+        location: data?.location || '',  
+        type: data?.type || '',  
+        date: data?.date.split('T')[0] || '',  
+        seatsNumber: data?.seatsNumber || '',  
+        slogan: data?.slogan || '',  
+        description: data?.description || '',  
+        agendaDetails: data?.agendaDetails || ['', ''],  
     }
 
-    const sendEventData = async(values) => {
+    const sendEventData = async (values) => {  
 
-        setIsLoading(true);
-        setSuccessMsg(null);
-        setErrMsg(null);
+        setIsUpdateLoading(true);  
+        setSuccessMsg(null);  
+        setErrMsg(null);  
 
-        let imageUrl = '';
+        try {  
 
-        try {
+            const { img_preview, ...cleanedValues } = values;
+    
+            let imageUrl = img_preview;
 
-            if (values.image) {
-                
-                if (!values.image.type?.startsWith("image/")) {
-                    setErrMsg(t('invalidImageType'));
-                    return;
-                }
-                
+            if (values.image instanceof File) {
                 imageUrl = await uploadImageToCloudinary(values.image);
-                
-                if (!imageUrl) {
-                    setErrMsg(t('imageUploadFailed'));
-                    setTimeout(() => {
-                        setErrMsg(null)
-                    }, 2000);
-                    return;
-                }
-
-            }
+            } 
 
             const payload = {
-                ...values,
-                image: imageUrl,
-            };
+                ...cleanedValues,
+                image: imageUrl
+            };  
 
-            const res = await Axios.post(addNewEvent, payload);
+            const res = await Axios.put(`${getAllEvents}/${id}`, payload);  
             const isSuccess = res.status === 200 || res.status === 201;
 
-            if(isSuccess){
+            if (isSuccess) {  
 
-                setSuccessMsg(`eventAddedSuccessfullyMsg`);
+                setSuccessMsg(t('eventUpdatedSuccessfullyMsg'));  
 
                 setTimeout(() => {
 
@@ -124,20 +124,21 @@ export default function AddEvent() {
 
                 }, 2000);
 
-            }
+            }  
+        } catch (error) {  
+            console.error(error);  
+            setErrMsg(t('errorUpdateEventMsg'));  
+        } finally {  
+            setIsUpdateLoading(false);  
+        }  
 
-        } catch (error) {
-            console.error(error);
-            setErrMsg('errorAddEventMsg');
-        } finally {
-            setIsLoading(false);
-        }
-
-    }
+    }  
 
     const formikObj = useFormik({
-
+    
         initialValues: values,
+
+        enableReinitialize: true,  
 
         validationSchema: eventValidationSchema(t),
 
@@ -175,6 +176,8 @@ export default function AddEvent() {
 
     return <React.Fragment>
 
+        {isError && <FullError icon={errorSVG} msg={'errorFetchMessage'} isRed={true} />}
+
         <AnimatePresence>
             {successMsg && <ResponsePage type={true} msg={successMsg} />}
             {errMsg && <ResponsePage type={false} msg={errMsg} />}
@@ -182,7 +185,7 @@ export default function AddEvent() {
 
         <section className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10'>
 
-            <Title title={'addEventWord'} />
+            <Title title={'updateEventWord'} />
 
             <form 
                 onSubmit={(e) => {window.scrollTo({ top: 0, behavior: 'smooth' }); formikObj.handleSubmit(e)}} 
@@ -194,7 +197,7 @@ export default function AddEvent() {
             >
 
                 <AnimatePresence>
-                    {isLoading && 
+                    {(isUpdateLoading || isLoading) && 
                         <motion.div 
                             variants={Animations.opacityVariants}
                             initial='hidden' animate='visible' exit={'exit'}
@@ -205,45 +208,48 @@ export default function AddEvent() {
 
                 <div className='col-span-2 flex flex-col gap-2.5 max-[785px]:col-span-1'>
 
-                    {formikObj.values.image && <img 
+                    {formikObj.values.img_preview && <img  
                         className='w-fit h-16 rounded-md object-cover' 
-                        src={formikObj.values.img_preview} alt="eventImg" 
-                    />}
+                        src={formikObj.values.img_preview} alt="eventImage"  
+                    />}  
 
-                    <ImgInput label={'uploadImageWord'} 
-                        value={formikObj.values.image} 
-                        onChange={(event) => {
-                            const file = event.target.files[0];
-                            if (file) {
-                                formikObj.setFieldValue('image', file);
-                                formikObj.setFieldValue('img_preview', URL.createObjectURL(file));
-                            }
-                        }}
+                    <ImgInput label={'updateImageWord'}  
+                        value={formikObj.values.image}  
+                        onChange={(e) => {  
+                            const file = e.target.files[0];  
+                            if (file) {  
+                                formikObj.setFieldValue('image', file);  
+                                formikObj.setFieldValue('img_preview', URL.createObjectURL(file));  
+                            }  
+                        }}  
                         onBlur={formikObj.handleBlur}
-                        ValidationError={formikObj.touched.image && formikObj.errors.image ? formikObj.errors.image : null}
-                    />
+                        ValidationError={formikObj.touched.image && formikObj.errors.image ? formikObj.errors.image : null} 
+                    /> 
 
                 </div>
 
                 <Input id={'name'} 
+                    mode='edit'
                     label={'eventNameWord'} type={'text'} password={false}
-                    loading={true} placeHolder={'eventNamePlaceholder'}
+                    loading={true} placeHolder={isLoading ? 'loadingWord' : 'eventNamePlaceholder'}
                     onChange={formikObj.handleChange} value={formikObj.values.name}
                     onBlur={formikObj.handleBlur}
                     ValidationError={formikObj.touched.name && formikObj.errors.name ? formikObj.errors.name : null}
                 />
 
                 <Input id={'location'} 
+                    mode='edit'
                     label={'locationWord'} type={'text'} password={false}
-                    loading={true} placeHolder={'locationPlaceholder'}
+                    loading={true} placeHolder={isLoading ? 'loadingWord' : 'locationPlaceholder'}
                     onChange={formikObj.handleChange} value={formikObj.values.location}
                     onBlur={formikObj.handleBlur}
                     ValidationError={formikObj.touched.location && formikObj.errors.location ? formikObj.errors.location : null}
                 />
 
                 <ListInput id={'type'} 
+                    mode='edit'
                     label={'chooseEventType'}
-                    placeHolder={'chooseEventTypePlaceholder'}
+                    placeHolder={isLoading ? 'loadingWord' : 'chooseEventTypePlaceholder'}
                     options={filtersTypes}
                     onChange={formikObj.handleChange} value={formikObj.values.type}
                     onBlur={formikObj.handleBlur}
@@ -258,8 +264,9 @@ export default function AddEvent() {
                 />
 
                 <Input id={'seatsNumber'} 
+                    mode='edit'
                     label={'numOfSeatsWord'} type={'text'} password={false}
-                    loading={true} placeHolder={'numOfSeatsPlaceholder'}
+                    loading={true} placeHolder={isLoading ? 'loadingWord' : 'numOfSeatsPlaceholder'}
                     onChange={formikObj.handleChange} value={formikObj.values.seatsNumber}
                     onBlur={formikObj.handleBlur}
                     ValidationError={formikObj.touched.seatsNumber && formikObj.errors.seatsNumber ? 
@@ -269,8 +276,9 @@ export default function AddEvent() {
                 />
 
                 <Input id={'slogan'} 
+                    mode='edit'
                     label={'eventSloganWord'} type={'text'} password={false}
-                    loading={true} placeHolder={'eventSloganPlaceholder'}
+                    loading={true} placeHolder={isLoading ? 'loadingWord' : 'eventSloganPlaceholder'}
                     onChange={formikObj.handleChange} value={formikObj.values.slogan}
                     onBlur={formikObj.handleBlur}
                     ValidationError={formikObj.touched.slogan && formikObj.errors.slogan ? formikObj.errors.slogan : null}
@@ -279,7 +287,7 @@ export default function AddEvent() {
                 <div className='col-span-2 max-[785px]:col-span-1'>
                     <Textarea id={'description'} 
                         label={'eventDescriptionWord'} 
-                        placeHolder={'eventDescriptionPlaceholder'} 
+                        placeHolder={isLoading ? 'loadingWord' : 'eventDescriptionPlaceholder'} 
                         onChange={formikObj.handleChange} value={formikObj.values.description}
                         onBlur={formikObj.handleBlur}
                         ValidationError={formikObj.touched.description && formikObj.errors.description ? 
@@ -305,8 +313,9 @@ export default function AddEvent() {
                             >
 
                                 <Input id={`agendaDetails[${idx}]`} 
+                                    mode='edit'
                                     label={`agendaItemWord`} type={'text'} password={false}
-                                    loading={true} placeHolder={`agendaPlaceholderWord`}
+                                    loading={true} placeHolder={isLoading ? 'loadingWord' : `agendaPlaceholderWord`}
                                     onChange={formikObj.handleChange} value={formikObj.values.agendaDetails[idx]}
                                     onBlur={formikObj.handleBlur}
                                     ValidationError={
@@ -359,17 +368,17 @@ export default function AddEvent() {
                 </div>
 
                 <div className='col-span-2 max-[785px]:col-span-1'>
-
+                
                     <button type='submit' className='
                         w-full py-2.5 px-5 rounded-md bg-[var(--blue-color)] 
                         text-[var(--salt-color)] font-medium dark:text-[var(--black-color-2)]
                         flex items-center justify-center gap-2.5 cursor-pointer
                     '>
-                        {isLoading ? 
+                        {isUpdateLoading ? 
                             <PacmanLoader color='var(--salt-color-const)' size={8} speedMultiplier={1} />
                             : <>
-                                <IoIosAddCircleOutline className='text-2xl' />
-                                <p>{t('addEventWord')}</p>
+                                <TfiReload className='text-xl' />
+                                <p>{t('updateEventWord')}</p>
                             </>
                         }
                     </button>

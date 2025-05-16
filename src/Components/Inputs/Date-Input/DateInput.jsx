@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { MdOutlineEventNote } from 'react-icons/md';
 
-export default function DateInput({id, label, width, onChange, onBlur, value}) {
+export default function DateInput({id, label, width, onChange, onBlur, value, ValidationError}) {
 
     const {t} = useTranslation();
     
@@ -33,12 +33,15 @@ export default function DateInput({id, label, width, onChange, onBlur, value}) {
 
             <label 
                 className={`
-                    text-base font-medium 
+                    flex items-center justify-between gap-1.5 text-base font-medium 
                     ${hasValue ? 'text-[var(--blue-color)]' : 'text-[var(--gray-color-2)]'} 
                     duration-300 group-focus-within:text-[var(--blue-color)]
                 `} 
                 htmlFor={id}
-            >{t(label)} :</label>
+            >
+                <p>{t(label)} :</p>
+                {ValidationError && <p className='text-xs text-[var(--red-color)]'>* {ValidationError}</p>}
+            </label>
 
             <input id={id}
                 type={'date'}

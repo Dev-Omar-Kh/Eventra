@@ -5,23 +5,14 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { AnimatePresence, motion } from 'framer-motion';
 import Animations from '../../Animations/Animations';
 
-export default function Filter() {
+export default function Filter({data, icon, width, currentFilter, setCurrentFilter}) {
 
     const {t} = useTranslation();
-
-    const filtersTypes = [
-        'conferencesWord',
-        'showsPerformancesWord',
-        'exhibitionsWord',
-        'festivalsWord',
-        'coursesWorkshopsWord',
-        'musicConcertsWord',
-    ];
 
     // ====== handle-outside-click ====== //
 
     const [displayList, setDisplayList] = useState(false);
-    const [selectedType, setSelectedType] = useState('allEventsWord');
+    const [selectedType, setSelectedType] = useState(currentFilter);
     const ulRef = useRef(null);
 
     const handleClickOutside = useCallback((event) => {
@@ -46,7 +37,7 @@ export default function Filter() {
 
     const handleSelectType = (type) => {
 
-        // setFilterKey(type);
+        setCurrentFilter(type);
         setSelectedType(type);
         setDisplayList(false);
 
@@ -58,13 +49,13 @@ export default function Filter() {
 
             <button
                 onClick={() => setDisplayList(prev => !prev)} 
-                className='
-                    min-w-48 max-[560px]:min-w-full p-2.5 rounded-md bg-[var(--gray-color-3)] 
+                className={`
+                    ${width} max-[560px]:min-w-full p-2.5 rounded-md bg-[var(--gray-color-3)] 
                     flex items-center justify-between gap-2.5 cursor-pointer
-                '
+                `}
             >
 
-                <div className='p-1 rounded-md text-2xl text-[var(--blue-color)] bg-[var(--gray-color-1)]'><BiFilterAlt /></div>
+                <div className='p-1 rounded-md text-2xl text-[var(--blue-color)] bg-[var(--gray-color-1)]'>{icon}</div>
 
                 <p className='text-base font-medium text-[var(--black-color-2)]'>{t(selectedType)}</p>
 
@@ -89,7 +80,7 @@ export default function Filter() {
                         className={`max-h-80 bg-[var(--gray-color-3)] overflow-auto custom-scroll`}
                     >
 
-                        {filtersTypes.map(cate => <li 
+                        {data.map(cate => <li 
                             key={cate}
                             onClick={() => handleSelectType(cate)}
                             className={`

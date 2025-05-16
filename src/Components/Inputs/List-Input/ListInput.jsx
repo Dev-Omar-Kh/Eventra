@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { IoIosArrowForward } from 'react-icons/io';
 import { PiWarningCircle } from "react-icons/pi";
 
-export default function ListInput({ id, label, placeHolder, options, onSelect, onChange, onBlur, value }) {
+export default function ListInput({ id, label, placeHolder, options, onSelect, onChange, onBlur, value, ValidationError }) {
 
     const {t, i18n} = useTranslation();
 
@@ -21,12 +21,23 @@ export default function ListInput({ id, label, placeHolder, options, onSelect, o
         setSearchTerm(value || '');
     }, [value]);
 
+    useEffect(() => {
+
+        if (searchTerm.trim() === '') {
+            setFilteredOptions(options);
+        } else {
+            setFilteredOptions(
+                options.filter(option =>
+                    option.toLowerCase().includes(searchTerm.toLowerCase())
+                )
+            );
+        }
+
+    }, [searchTerm, options]);
+
     const handleSearchChange = (e) => {
         const value = e.target.value;
         setSearchTerm(value);
-        setFilteredOptions(options.filter(option =>
-            option.toLowerCase().includes(value.toLowerCase())
-        ));
         if (onChange) onChange(e);
     };
 
@@ -59,13 +70,14 @@ export default function ListInput({ id, label, placeHolder, options, onSelect, o
 
             <label 
                 className={`
-                    text-base font-medium 
+                    flex items-center justify-between gap-1.5 text-base font-medium 
                     ${searchTerm ? 'text-[var(--blue-color)]' : 'text-[var(--gray-color-2)]'}
                     duration-300 group-focus-within:text-[var(--blue-color)]
                 `} 
                 htmlFor={id}
             >
-                {t(label)} :
+                <p>{t(label)} :</p>
+                {ValidationError && <p className='text-xs text-[var(--red-color)]'>* {ValidationError}</p>}
             </label>
 
             <input id={id}

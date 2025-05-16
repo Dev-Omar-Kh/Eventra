@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 
-export default function ImgInput({label, onChange, onBlur, value}) {
+export default function ImgInput({label, onChange, onBlur, value, ValidationError}) {
 
     const {t} = useTranslation();
 
@@ -26,6 +26,10 @@ export default function ImgInput({label, onChange, onBlur, value}) {
 
     return <React.Fragment>
 
+        {ValidationError && <div className='w-full flex justify-end'>
+            <p className='text-xs text-[var(--red-color)]'>* {ValidationError}</p>
+        </div>}
+
         <label 
             htmlFor="img" 
             className={`
@@ -47,7 +51,7 @@ export default function ImgInput({label, onChange, onBlur, value}) {
             </div>
 
             <input 
-                type="file" id="img" className='hidden' 
+                type="file" id="img" accept="image/*" className='hidden' 
                 onChange={handleFileChange} onBlur={onBlur}
             />
 

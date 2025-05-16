@@ -6,7 +6,10 @@ import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { useTranslation } from 'react-i18next';
 
 
-export default function Input({id, label, type, password, loading, placeHolder, width, onChange, onBlur, value}) {
+export default function Input({
+    id, label, type, password, loading, placeHolder, 
+    width, onChange, onBlur, value, ValidationError, mode = 'add'
+}) {
 
     const {t, i18n} = useTranslation();
 
@@ -14,11 +17,16 @@ export default function Input({id, label, type, password, loading, placeHolder, 
     const [isFocused, setIsFocused] = useState(false);
 
     useEffect(() => {
-        setHasValue(value && value.trim() !== '');
-    }, [value]);
+        if (mode === 'edit') {
+            setHasValue(value !== undefined && value !== null && value !== '');
+        } else {
+            setHasValue(value && value.trim() !== '');
+        }
+    }, [value, mode]);
 
     const handleInputChange = (e) => {
-        setHasValue(e.target.value.trim() !== '');
+        const inputValue = e.target.value;
+        setHasValue(mode === 'add' ? inputValue.trim() !== '' : inputValue !== '');
         if (onChange) onChange(e);
     };
 
@@ -45,12 +53,15 @@ export default function Input({id, label, type, password, loading, placeHolder, 
 
             <label 
                 className={`
-                    text-base font-medium 
+                    flex items-center justify-between gap-1.5 text-base font-medium 
                     ${hasValue ? 'text-[var(--blue-color)]' : 'text-[var(--gray-color-2)]'} 
                     duration-300 group-focus-within:text-[var(--blue-color)]
                 `} 
                 htmlFor={id}
-            >{t(label)} :</label>
+            >
+                <p>{t(label)} :</p>
+                {ValidationError && <p className='text-xs text-[var(--red-color)]'>* {ValidationError}</p>}
+            </label>
 
             <input id={id}
                 type={password ? passType : type}

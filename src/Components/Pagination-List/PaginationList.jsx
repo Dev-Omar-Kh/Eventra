@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const Button = ({ text, content, onClick, disabled, current }) => {
@@ -23,35 +23,45 @@ const Button = ({ text, content, onClick, disabled, current }) => {
 
 };
 
-export default function PaginationList() {
+export default function PaginationList({data, setCurrentPage, currentPage}) {
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = 10;
+    // const [currentPage, setCurrentPage] = useState(data?.page);
+    const totalPages = data?.totalPages;
 
     const getPageList = () => {
 
         const pages = [];
     
         if (totalPages <= 7) {
+
             for (let i = 1; i <= totalPages; i++) {
                 pages.push(i);
             }
+
             return pages;
+
         }
     
         if (currentPage <= 4) {
+
             for (let i = 1; i <= 5; i++) {
                 pages.push(i);
             }
+
             pages.push('...');
             pages.push(totalPages);
+
         } else if (currentPage >= totalPages - 3) {
+
             pages.push(1);
             pages.push('...');
+
             for (let i = totalPages - 4; i <= totalPages; i++) {
                 pages.push(i);
             }
+
         } else {
+
             pages.push(1);
             pages.push('...');
             pages.push(currentPage - 1);
@@ -59,16 +69,18 @@ export default function PaginationList() {
             pages.push(currentPage + 1);
             pages.push('...');
             pages.push(totalPages);
+
         }
-    
+
         return pages;
+
     };
 
     const pageList = getPageList();
 
     return <React.Fragment>
 
-        <div className="max-w-full flex flex-wrap justify-center items-center gap-1.5">
+        {data && <div className="max-w-full flex flex-wrap justify-center items-center gap-1.5">
 
             <Button
                 text="text-xl rtl:rotate-180"
@@ -98,7 +110,7 @@ export default function PaginationList() {
                 disabled={currentPage === totalPages}
             />
 
-        </div>
+        </div>}
 
     </React.Fragment>
 }

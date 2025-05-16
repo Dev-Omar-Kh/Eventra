@@ -22,12 +22,12 @@ export default function TopEvents() {
 
     const cardsData = [
 
-        {id: 1, image: conferencesImg, title: 'conferencesWord', explain: 'conferencesSlogan', link: ''},
-        {id: 2, image: showsPerformancesImg, title: 'showsPerformancesWord', explain: 'showsPerformancesSlogan', link: ''},
-        {id: 3, image: exhibitionsImg, title: 'exhibitionsWord', explain: 'exhibitionsSlogan', link: ''},
-        {id: 4, image: festivalsImg, title: 'festivalsWord', explain: 'festivalsSlogan', link: ''},
-        {id: 5, image: coursesWorkshopsImg, title: 'coursesWorkshopsWord', explain: 'coursesWorkshopsSlogan', link: ''},
-        {id: 6, image: musicConcertsImg, title: 'musicConcertsWord', explain: 'musicConcertsSlogan', link: ''},
+        {id: 1, image: conferencesImg, title: 'conferencesWord', explain: 'conferencesSlogan', link: '/events'},
+        {id: 2, image: showsPerformancesImg, title: 'showsPerformancesWord', explain: 'showsPerformancesSlogan', link: '/events'},
+        {id: 3, image: exhibitionsImg, title: 'exhibitionsWord', explain: 'exhibitionsSlogan', link: '/events'},
+        {id: 4, image: festivalsImg, title: 'festivalsWord', explain: 'festivalsSlogan', link: '/events'},
+        {id: 5, image: coursesWorkshopsImg, title: 'coursesWorkshopsWord', explain: 'coursesWorkshopsSlogan', link: '/events'},
+        {id: 6, image: musicConcertsImg, title: 'musicConcertsWord', explain: 'musicConcertsSlogan', link: '/events'},
 
     ];
 
@@ -121,7 +121,7 @@ export default function TopEvents() {
                                 {t(card.explain)}
                             </p>
 
-                            <Link className='
+                            <Link to={card.link} className='
                                 w-fit px-5 py-2.5 rounded-md bg-[var(--blue-color)] text-base font-medium text-[var(--salt-color)]
                                 dark:text-[var(--black-color-2)] flex items-center gap-1.5 duration-300 hover:gap-2.5
                             '>

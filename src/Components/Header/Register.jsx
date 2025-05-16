@@ -3,9 +3,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Animations from './../../Animations/Animations';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TbLogin2 } from 'react-icons/tb';
 import { AiOutlineUser, AiOutlineUserAdd } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/authSlice';
+import {jwtDecode} from 'jwt-decode';
 
 export default function Register() {
 
@@ -21,7 +24,7 @@ export default function Register() {
     ];
 
     // ====== display-links ====== //
-    
+
     const [displayLinks, setDisplayLinks] = useState(false);
 
     const toggleLangsList = () => {
@@ -50,6 +53,32 @@ export default function Register() {
 
     }, [handleClickOutside]);
 
+    // ====== check-authorization ====== //
+
+    const hasToken = useSelector(state => state.auth.token);
+    const [userName, setUserName] = useState(null);
+
+    useEffect(() => {
+
+        if(hasToken){
+            const {name} = jwtDecode(hasToken);
+            setUserName(name || 'error');
+        }
+
+    }, [hasToken]);
+
+    // ====== handle-logout-button ====== //
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+
+        dispatch(logout());
+        navigate('/');
+
+    }
+
     return <React.Fragment>
 
         <button ref={LinkListRef} onClick={toggleLangsList} className='
@@ -75,10 +104,11 @@ export default function Register() {
                     initial='hidden' animate='visible' exit={'exit'}
                     className={`
                         min-w-full absolute start-0 top-mixed-110 rounded-md bg-[var(--gray-color-3)] overflow-hidden
+                        shadow-[0_0px_10px_var(--black-opacity-color)]
                     `}
                 >
 
-                    {linksData.map(link => 
+                    {!hasToken && linksData.map(link => 
                         <Link to={link.url} key={link.id}>
                             <li 
                                 className={`
@@ -95,6 +125,50 @@ export default function Register() {
                             </li>
                         </Link>
                     )}
+
+                    {hasToken && <React.Fragment>
+
+                        {userName && <li>
+
+                            <div
+                                className={`
+                                    w-full p-2.5 flex items-center gap-2.5
+                                    text-[var(--gray-color-2)] border-b border-[var(--gray-color-1)]
+                                `}
+                            >
+
+                                <div className='text-2xl'>
+                                    <AiOutlineUser />
+                                </div>
+                                <p className='text-base font-medium whitespace-nowrap'>
+                                    {userName.split(' ')[0]}
+                                </p>
+
+                            </div>
+
+                        </li>}
+
+                        <li>
+
+                            <div
+                                onClick={handleLogout}
+                                className={`
+                                    w-full p-2.5 flex items-center gap-2.5 cursor-pointer duration-300 
+                                    text-[var(--gray-color-2)] hover:bg-[var(--blue-color)] hover:text-[var(--salt-color)]
+                                    dark:hover:text-[var(--black-color-2)]
+                                `}
+                            >
+
+                                <div className='text-2xl rotate-180'>
+                                    <TbLogin2 />
+                                </div>
+                                <p className='text-base font-medium whitespace-nowrap'>{t('logoutWord')}</p>
+
+                            </div>
+
+                        </li>
+
+                    </React.Fragment>}
 
                 </motion.ul>}
 

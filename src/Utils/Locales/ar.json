@@ -2,6 +2,7 @@
 
     "homeWord": "الرئيسية",
     "eventsWord": "الفعاليات",
+    "bookedEventsWord": "الفعاليات المحجوزة",
     "adminPanelWord": "لوحة التحكم",
     "loginWord": "تسجيل الدخول",
     "registerWord": "تسجيل",
@@ -66,7 +67,7 @@
     "dateWord": "التاريخ",
     "locationWord": "الموقع",
     "statusWord": "الحالة",
-    "viewEventWord": "عرض الفعالية",
+    "viewEventsWord": "عرض الفعالية",
     "actionsWord": "الاجراءات",
 
     "uploadImageWord": "تحميل صورة الفعالية",
@@ -83,6 +84,91 @@
     "eventDescriptionWord": "وصف الفعالية",
     "eventDescriptionPlaceholder": "أدخل وصف الفعالية",
     "agendaItemWord": "تفاصيل الأجندة",
-    "agendaPlaceholderWord": "أدخل تفاصيل الأجندة"
+    "agendaPlaceholderWord": "أدخل تفاصيل الأجندة",
+
+    "emailRequiredWord": "البريد الإلكتروني مطلوب",
+    "emailInvalidWord": "البريد الإلكتروني غير صالح",
+    "passwordRequiredWord": "كلمة المرور مطلوبة",
+    "nameRequiredWord": "الاسم مطلوب",
+    "passwordMinWord": "كلمة المرور يجب أن تحتوي على 6 أحرف على الأقل",
+    "passwordMustMatchWord": "كلمتا المرور غير متطابقتين",
+    "confirmPasswordRequiredWord": "تأكيد كلمة المرور مطلوب",
+
+    "loginErrorMsg": "الايميل او كلمة المرور غير صحيحة",
+    "loginWelcomeMessage": "مرحبًا, {{name}}",
+    "signUpWelcomeMessage": "مرحبا {{name}}, تم انشاء حسابك بنجاح",
+    "signUpError": "خطا غير متوقع",
+
+    "errorFetchMessage": "خطأ في تحميل البيانات",
+    "noEventsYetMessage": "لا توجد فعاليات حتى الان",
+
+    "viewEventWord": "عرض الفعالية",
+
+    "imageTypeMsg": "يجب أن تكون الصورة من نوع صحيح",
+    "imageRequiredMsg": "الصورة مطلوبة",
+
+    "nameMinMsg": "يجب ألا يقل الاسم عن 3 أحرف",
+    "nameMaxMsg": "يجب ألا يزيد الاسم عن 100 حرف",
+    "nameRequiredMsg": "الاسم مطلوب",
+
+    "locationRequiredMsg": "الموقع مطلوب",
+
+    "typeRequiredMsg": "نوع الحدث مطلوب",
+
+    "dateRequiredMsg": "تاريخ الحدث مطلوب",
+
+    "seatsTypeMsg": "عدد المقاعد يجب أن يكون رقمًا",
+    "seatsIntegerMsg": "عدد المقاعد يجب أن يكون عددًا صحيحًا",
+    "seatsMinMsg": "يجب أن يكون هناك مقعد واحد على الأقل",
+    "seatsRequiredMsg": "عدد المقاعد مطلوب",
+
+    "sloganRequiredMsg": "الشعار مطلوب",
+
+    "descriptionRequiredMsg": "الوصف مطلوب",
+
+    "agendaRequiredMsg": "جدول الفعالية مطلوب",
+    "agendaMinMsg": "يجب إضافة بند واحد على الأقل في جدول الفعالية",
+    "agendaItemRequiredMsg": "لا يمكن ترك بند في الجدول فارغًا",
+
+    "noOptionsMatched": "لا توجد خيارات مطابقة",
+
+    "eventAddedSuccessfullyMsg": "تمت اضافة الفعالية بنجاح",
+
+    "errorAddEventMsg": "هناك خطأ ما",
+
+    "updateEventWord": "تحديث الفعالية",
+    "updateImageWord": "تحديث الصورة",
+    "loadingWord": "جاري التحميل ...",
+
+    "eventUpdatedSuccessfullyMsg": "تم تحديث الفعالية بنجاح",
+    "errorUpdateEventMsg": "خطأ في تحديث الفعالية",
+
+    "deleteEventTitle": "حذف فعالية",
+    "deleteEventMessage": "هل أنت متأكد أنك تريد حذف هذه الفعالية؟ لا يمكن التراجع عن هذا الإجراء.",
+    "confirmWord": "تأكيد",
+    "cancelWord": "الغاء",
+
+    "eventDeletedSuccessMsg": "تم حذف الفعالية بنجاح",
+    "failedDeleteEventMsg": "فشل حذف هذه الفعالية",
+
+    "deleteBookedEventTitle": "حذف الحجز",
+    "deleteBookedEventMessage": "هل أنت متأكد أنك تريد حذف هذا الحجز؟ لا يمكن التراجع عن هذا الإجراء.",
+    "eventBookedDeletedSuccessMsg": "تم حذف حجز الفعالية بنجاح",
+    "failedDeleteBookedEventMsg": "فشل حذف حجز الفعالية",
+
+    "noEventsBookedYet": "لم يتم حجز أي فعاليات بعد",
+    "errorTableMsg": "حدث خطأ أثناء جلب البيانات",
+    "eventBookedSuccessfully": "تم حجز الفعالية بنجاح",
+    "failedBookEvent": "فشل في حجز الفعالية",
+    "bookNowWord": "احجز الآن",
+    "bookedWord": "تم الحجز",
+
+    "outOfStockWord": "نفدت التذاكر",
+
+    "authErrorMsg": "يجب تسجيل الدخول اولا",
+
+    "errorPageMsg": "عذرًا، لا يمكن الوصول إلى هذه الصفحة. قد تكون محذوفة أو غير متاحة أو لا تملك صلاحية الدخول.",
+
+    "goToHomeWord": "انتقل للصفحة الرئيسية"
 
 }

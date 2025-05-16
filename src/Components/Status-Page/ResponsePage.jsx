@@ -6,13 +6,16 @@ import Animations from '../../Animations/Animations';
 
 import errorIcon from '../../Assets/JSON/wrong.json';
 import successIcon from '../../Assets/JSON/true.json';
+import { useTranslation } from 'react-i18next';
 
-export default function ResponsePage({type, msg}) {
+export default function ResponsePage({type, msg, userName}) {
+
+    const {t} = useTranslation();
 
     return <React.Fragment>
 
         <motion.section variants={Animations.opacityVariantsNoStagger} initial='hidden' animate='visible' exit={'exit'} className='
-            common_cont fixed top-0 left-0 w-full h-screen flex items-center justify-center 
+            py-[3.125rem] px-[4.5%] fixed top-0 left-0 w-full h-screen flex items-center justify-center 
             bg-[var(--darker-black-opacity-color)] z-[100]
         '>
 
@@ -24,8 +27,11 @@ export default function ResponsePage({type, msg}) {
                 <Lottie className='w-28' animationData={type ? successIcon : errorIcon} loop={false} />
 
                 <p 
-                    className={`text-xl font-medium ${type ? 'text-[var(--blue-color)]' : 'text-[var(--red-color)]'}`} 
-                >{msg}</p>
+                    className={`
+                        text-xl font-medium text-center max-[425px]:text-base 
+                        ${type ? 'text-[var(--blue-color)]' : 'text-[var(--red-color)]'}
+                    `} 
+                >{userName ? t(msg, {name: userName}) : t(msg)}</p>
 
             </motion.div>
 

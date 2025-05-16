@@ -1,43 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IoIosAddCircleOutline, IoIosArrowForward } from 'react-icons/io';
+import { IoIosArrowForward } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import Title from './../../Components/Title/Title';
 import Table from '../../Components/Table/Table';
 import warningSVG from '../../Assets/JSON/warning.json';
 import WarnPopUp from './../../Components/Pop-Up/WarnPopUp';
-import { Axios, getAllEvents } from '../../API/Api';
+import { Axios, bookEvent } from '../../API/Api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { FiEdit } from 'react-icons/fi';
 import { IoBanSharp } from 'react-icons/io5';
-import PaginationList from '../../Components/Pagination-List/PaginationList';
 import { AnimatePresence } from 'framer-motion';
 import ResponsePage from '../../Components/Status-Page/ResponsePage';
 import FullLoading from '../../Components/Loading/FullLoading';
 
-export default function AdminPanel() {
+export default function BookedEvents() {
 
     const {t, i18n} = useTranslation();
 
-    // ====== get-all-events-data ====== //
-
-    const [currentPage, setCurrentPage] = useState(1);
-
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [currentPage]);
+    // ====== get-booked-events ====== //
 
     const getApiData = async() => {
-        const {data} = await Axios.get(`${getAllEvents}/?page=${currentPage}`);
+        const {data} = await Axios.get(`${bookEvent}`);
         return data
     }
 
     const { data, isError, isLoading } = useQuery({
-        queryKey: ["getAllEventsPanel", currentPage], 
-        queryFn: getApiData, keepPreviousData: true,
+        queryKey: ["getBookedEvents"], 
+        queryFn: getApiData,
     });
 
-    // ====== delete-event-pop-up ====== //
+    // ====== delete-booked-event ====== //
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(null);
@@ -45,19 +37,19 @@ export default function AdminPanel() {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const deleteEvent = (id) => {
-        return Axios.delete(`${getAllEvents}/${id}`)
+        return Axios.delete(`${bookEvent}/${id}`);
     }
 
     const queryClient = useQueryClient();
     const { mutate: deleteEventMutate, isPending: deleteIsLoading } = useMutation({
         mutationFn: deleteEvent,
         onSuccess: () => {
-            queryClient.invalidateQueries(["getAllEventsPanel", currentPage]);
-            setSuccessMessage('eventDeletedSuccessMsg');
+            queryClient.invalidateQueries(["getBookedEvents"]);
+            setSuccessMessage('eventBookedDeletedSuccessMsg');
         },
         onError: (error) => {
             console.error('Error deleting event:', error.message);
-            setErrorMessage('failedDeleteEventMsg');
+            setErrorMessage('failedDeleteBookedEventMsg');
         },
     });
 
@@ -116,22 +108,22 @@ export default function AdminPanel() {
             isRed={true}
             onClose={handleCloseModal}
             onConfirm={handleConfirmBan}
-            title={t('deleteEventTitle')}
-            message={t('deleteEventMessage')}
+            title={t('deleteBookedEventTitle')}
+            message={t('deleteBookedEventMessage')}
         />
 
         <section className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10'>
 
             <div className='w-full flex items-center justify-between flex-wrap gap-5'>
 
-                <Title title={'eventsManagementWord'} />
+                <Title title={'bookedEventsWord'} />
 
-                <Link to={'add-event'} className='
+                <Link to={'/events'} className='
                     px-5 py-2.5 flex items-center gap-2.5 rounded-md bg-[var(--blue-color)]
                     text-base text-[var(--salt-color)] dark:text-[var(--black-color-2)] font-medium cursor-pointer
                 '>
-                    <IoIosAddCircleOutline className='text-xl' />
-                    <p>{t('addEventWord')}</p>
+                    <p>{t('exploreEventsWord')}</p>
+                    <IoIosArrowForward className='text-xl rtl:rotate-180' />
                 </Link>
 
             </div>
@@ -141,32 +133,32 @@ export default function AdminPanel() {
                 border border-solid border-[var(--gray-color-3)] overflow-x-auto hidden_scroll
             '>
 
-                <Table data={data?.events} 
+                <Table data={data} 
                     columns={['eventWord', 'dateWord', 'locationWord', 'viewEventsWord']}
-                    actions={true} emptyMessage="noEventsYet" emptyIcon={warningSVG}
+                    actions={true} emptyMessage="noEventsBookedYet" emptyIcon={warningSVG}
                     isLoading={isLoading} isError={isError}
                     renderRow={(event) => (
 
                         <React.Fragment>
 
-                            <td className='p-2.5 whitespace-nowrap'>{event.name}</td>
+                            <td className='p-2.5 whitespace-nowrap'>{event.event.name}</td>
 
                             <td className={`
                                 ${i18n.language === 'en' ? 'border-l' : 'border-r'} 
                                 border-solid border-[var(--gray-color-1)] p-2.5 whitespace-nowrap
-                            `}>{event.date.split('T')[0]}</td>
+                            `}>{event.event.date.split('T')[0]}</td>
 
                             <td className={`
                                 ${i18n.language === 'en' ? 'border-l' : 'border-r'} 
                                 border-solid border-[var(--gray-color-1)] p-2.5 whitespace-nowrap
-                            `}>{event.location}</td>
+                            `}>{event.event.location}</td>
 
                             <td className={`
                                 ${i18n.language === 'en' ? 'border-l' : 'border-r'} 
                                 border-solid border-[var(--gray-color-1)] p-2.5 whitespace-nowrap
                             `}>
                                 <Link 
-                                    to={`/events/single-event/${event._id}`}
+                                    to={`/events/single-event/${event.event._id}`}
                                     className='flex items-center justify-center gap-1 cursor-pointer text-[var(--blue-color)]'
                                 >
                                     <p>{t('viewEventWord')}</p>
@@ -180,13 +172,6 @@ export default function AdminPanel() {
                     onActionClick={(event) => (
 
                         <div className='flex items-center justify-center gap-2.5'>
-
-                            <Link to={`update-event-data/${event._id}`} className='
-                                p-2.5 rounded-md bg-[var(--gray-color-3)]
-                                text-[var(--blue-color)] cursor-pointer duration-300
-                                hover:bg-[var(--blue-color)] hover:text-[var(--salt-color)]
-                                dark:hover:text-[var(--black-color-2)]
-                            '><FiEdit /></Link>
 
                             <button 
                                 onClick={() => handleDeleteClick(event)}
@@ -203,8 +188,6 @@ export default function AdminPanel() {
                 />
 
             </div>
-
-            <PaginationList data={data?.pagination} currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
         </section>
 
