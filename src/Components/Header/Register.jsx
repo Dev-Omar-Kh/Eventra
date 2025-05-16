@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/authSlice';
 import {jwtDecode} from 'jwt-decode';
 
-export default function Register() {
+export default function Register({handleNavToggle}) {
 
     const {t, i18n} = useTranslation();
     
@@ -76,6 +76,7 @@ export default function Register() {
 
         dispatch(logout());
         navigate('/');
+        handleNavToggle();
 
     }
 
@@ -89,7 +90,7 @@ export default function Register() {
             <div className='flex items-center gap-2.5'>
                 <AiOutlineUser />
                 <p className='hidden text-base font-semibold text-[var(--blue-color)] max-[881px]:inline-block'>
-                    {t('registerWord')}
+                    {t('accountWord')}
                 </p>
             </div>
 
@@ -109,7 +110,7 @@ export default function Register() {
                 >
 
                     {!hasToken && linksData.map(link => 
-                        <Link to={link.url} key={link.id}>
+                        <Link onClick={handleNavToggle} to={link.url} key={link.id}>
                             <li 
                                 className={`
                                     p-2.5 flex items-center gap-2.5 cursor-pointer duration-300 

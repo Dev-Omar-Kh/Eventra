@@ -22,7 +22,7 @@ export default function AuthContainer({children}) {
                 bg-[var(--blue-opacity-color)] dark:bg-[var(--dark-salt-opacity-color)]
             '>
 
-                <div className='fixed end-[4.5%] top-5 w-full flex  items-center justify-end flex-wrap gap-2.5'>
+                <div className='fixed end-[4.5%] top-5 w-full flex  items-center justify-end flex-wrap gap-2.5 z-50'>
 
                     <TrButton staySmall={true} />
 

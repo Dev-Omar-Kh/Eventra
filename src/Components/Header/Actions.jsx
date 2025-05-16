@@ -3,15 +3,15 @@ import TrButton from '../Translate/TrButton';
 import Register from './Register';
 import DmButton from '../Dark-Mode/DmButton';
 
-export default function Actions() {
+export default function Actions({handleNavToggle}) {
 
     return <React.Fragment>
 
         <div className='flex items-center gap-2.5 max-[881px]:flex-col'>
 
-            <TrButton />
+            <TrButton handleNavToggle={handleNavToggle} />
 
-            <Register />
+            <Register handleNavToggle={handleNavToggle} />
 
             <DmButton />
 

@@ -165,7 +165,7 @@ export default function Login() {
                     </button>
 
                     <div className='
-                        w-full text-center flex items-center justify-center gap-1.5 text-xs font-medium
+                        w-full text-center flex flex-wrap items-center justify-center gap-1.5 text-xs font-medium
                         text-[var(--black-color-2)]
                     '>
                         <p>{t('doNotHaveAccount')}</p> 

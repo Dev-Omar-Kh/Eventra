@@ -51,20 +51,22 @@ export default function SingleEvent() {
     const dispatch = useDispatch();
 
     const { loading, success, error } = useSelector((state) => state.booking);
-    const eventLoading = loading[data?._id];
-    const eventSuccess = success === data?._id;
-    const eventError = error === data?._id;
+    const eventId = data?._id;
+    const eventLoading = loading[eventId];
+    const eventSuccess = success[eventId];
+    const eventError = error[eventId];
 
     const handleBooking = () => {
-        dispatch(bookEventFun(data?._id));
+        dispatch(bookEventFun(eventId));
     };
 
     useEffect(() => {
 
+
         if (eventSuccess) {
 
             setSuccessMsg('eventBookedSuccessfully');
-            
+
             setTimeout(() => {
                 setSuccessMsg(null);
                 dispatch(resetBookingState());
@@ -75,13 +77,29 @@ export default function SingleEvent() {
 
         if (eventError) {
 
-            console.error(eventError);
-            setErrMsg('failedBookEvent');
-            
-            setTimeout(() => {
-                setErrMsg(null)
-                dispatch(resetBookingState());
-            }, 2000);
+            const axiosErrorMessage = eventError.response.data.error;
+            console.log(axiosErrorMessage);
+
+            if(axiosErrorMessage === 'Access denied. No token provided.'){
+
+                setErrMsg('authErrorMsg');
+
+                setTimeout(() => {
+                    setErrMsg(null)
+                    dispatch(resetBookingState());
+                    setTimeout(() => {navigate('/booked-events')}, 300);
+                }, 2000);
+
+            } else{
+
+                setErrMsg('failedBookEvent');
+
+                setTimeout(() => {
+                    setErrMsg(null)
+                    dispatch(resetBookingState());
+                }, 2000);
+
+            }
 
         }
 
@@ -100,8 +118,12 @@ export default function SingleEvent() {
         {!isError && !isLoading && data && 
             <section className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10'>
 
-                <div className='w-full min-h-60 rounded-md bg-[var(--gray-color)] border border-[var(--gray-color-3)]'>
-                    <img className='w-full max-h-128 object-cover rounded-md' src={data.image} alt={`${data.name} Image`} />
+                <div className='
+                    w-full min-h-60 max-[630px]:min-h-fit rounded-md bg-[var(--gray-color)] border border-[var(--gray-color-3)]
+                '>
+                    <img 
+                        className='w-full max-h-128 max-[630px]:min-h-fit object-cover rounded-md' 
+                        src={data.image} alt={`${data.name} Image`} />
                 </div>
 
                 <div className='grid grid-cols-10 gap-5 max-[965px]:grid-cols-11 max-[840px]:grid-cols-1'>

@@ -50,7 +50,7 @@ export default function Header() {
     const [isNavOpen, setIsNavOpen] = useState(false);
 
     const handleNavToggle = () => {
-        setIsNavOpen(!isNavOpen);
+        setIsNavOpen(prev => !prev);
     }
 
     return <React.Fragment>
@@ -94,6 +94,7 @@ export default function Header() {
 
                     {filteredNavBarData.map(link => <NavLink 
                         to={link.endpoint} key={link.id}
+                        onClick={handleNavToggle}
                         className={`
                             p-2.5 rounded-md hover:bg-[var(--blue-color)] hover:text-[var(--salt-color)] duration-300
                             text-[var(--gray-color-2)] max-[881px]:w-full
@@ -112,13 +113,13 @@ export default function Header() {
                 </ul>
 
                 <div className='hidden max-[881px]:inline-block max-[881px]:w-full'>
-                    <Actions />
+                    <Actions handleNavToggle={handleNavToggle} />
                 </div>
 
             </nav>
 
             <div className='max-[881px]:hidden'>
-                <Actions />
+                <Actions handleNavToggle={handleNavToggle} />
             </div>
 
         </header>

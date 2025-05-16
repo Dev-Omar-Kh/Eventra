@@ -6,7 +6,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Animations from './../../Animations/Animations';
 import Flag from 'react-world-flags';
 
-export default function TrButton({staySmall}) {
+export default function TrButton({staySmall, handleNavToggle}) {
 
     const {t, i18n} = useTranslation();
 
@@ -55,7 +55,7 @@ export default function TrButton({staySmall}) {
 
         i18n.changeLanguage(lang);
         localStorage.setItem('language', lang);
-        // setDisplayNan(false);
+        staySmall ? '' : handleNavToggle();
 
         setTimeout(() => {
             setDisplayLangs(false);
@@ -88,7 +88,7 @@ export default function TrButton({staySmall}) {
                     initial='hidden' animate='visible' exit={'exit'}
                     className={`
                         absolute min-w-full start-0 top-mixed-110 rounded-md bg-[var(--gray-color-3)] overflow-hidden
-                        shadow-[0_0px_10px_var(--black-opacity-color)]
+                        shadow-[0_0px_10px_var(--black-opacity-color)] z-50
                     `}
                 >
 

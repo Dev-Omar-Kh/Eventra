@@ -170,6 +170,8 @@
 
     "errorPageMsg": "Sorry, this page isn’t available. It may have been deleted, moved, or you don’t have permission to view it.",
 
-    "goToHomeWord": "Go to home page"
+    "goToHomeWord": "Go to home page",
+
+    "accountWord": "Account"
 
 }

@@ -86,7 +86,7 @@ export default function Card({data}) {
 
             <Link to={`/events/single-event/${data._id}`} className='flex flex-col gap-2.5'>
 
-                <div className='w-full h-56 bg-[var(--gray-color)]'>
+                <div className='w-full h-56 max-[630px]:h-fit bg-[var(--gray-color)]'>
                     <img className='w-full h-full object-cover max-[630px]:h-fit' src={data.image} alt={`${data.name} image`} />
                 </div>
 
