@@ -1,11 +1,13 @@
 import React from 'react';
-
-import heroImg from '../../../Assets/Images/hero-bg.png';
 import { LuTicket, LuTicketCheck } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
 import { HiOutlineSpeakerphone } from 'react-icons/hi';
 import { BsStarHalf } from 'react-icons/bs';
 import { BiWorld } from 'react-icons/bi';
+import { motion } from 'framer-motion';
+import Animations from './../../../Animations/Animations';
+
+import heroImg from '../../../Assets/Images/hero-bg.png';
 
 export default function Hero() {
 
@@ -16,16 +18,21 @@ export default function Hero() {
     const statisticsData = [
 
         {id: 1, icon: <HiOutlineSpeakerphone className='text-[var(--blue-color)]' />, num: 350, title: 'totalEventsWord'},
-        {id: 3, icon: <LuTicketCheck className='text-[var(--green-color)]' />, num: '52,500', title: 'totalReservedTicketsWord'},
-        {id: 2, icon: <BsStarHalf className='text-[var(--yellow-color)]' />, num: 4.8, title: 'usersRatesWord'},
+        {id: 2, icon: <LuTicketCheck className='text-[var(--green-color)]' />, num: '52,500', title: 'totalReservedTicketsWord'},
+        {id: 3, icon: <BsStarHalf className='text-[var(--yellow-color)]' />, num: 4.8, title: 'usersRatesWord'},
         {id: 4, icon: <BiWorld className='text-[var(--blue-color)]' />, num: 45, title: 'presentCountries'},
 
     ]
 
     return <React.Fragment>
 
-        <section 
-            className='w-full min-h-screen overlay bg-cover bg-center border-b border-solid border-[var(--gray-color-3)]' 
+        <motion.section
+            variants={Animations.addAnimationToChildOnlyVariants}
+            initial='hidden' animate={'visible'}
+            className='
+                w-full min-h-screen overlay bg-cover bg-center 
+                border-b border-solid border-[var(--gray-color-3)] overflow-hidden
+            ' 
             style={{backgroundImage: `url(${heroImg})`}}
         >
 
@@ -36,7 +43,12 @@ export default function Hero() {
 
                 <div className='flex flex-col items-center gap-5'>
 
-                    <div className='relative w-fit p-2.5 rounded-md bg-[var(--gray-color-3)] flex items-center gap-5'>
+                    <motion.div
+                        variants={Animations.toBottomVariants}
+                        className='relative w-fit p-2.5 rounded-md bg-[var(--gray-color-3)] flex items-center gap-5'
+                    >
+
+                        {/* ====== tree-lines ====== */}
 
                         <div className={`
                             absolute w-14 h-14 custom-start -top-[3.25rem]
@@ -75,19 +87,26 @@ export default function Hero() {
                             <span className='text-[var(--blue-color)]'>{t('bookWord') + ' '} </span> {t('heroTitle')}
                         </p>
 
-                    </div>
+                    </motion.div>
 
-                    <p className='
+                    <motion.p variants={Animations.toTopVariants} className='
                         max-w-xl max-[630]:w-full text-center text-base text-[var(--gray-color-3)] opacity-75 
                         dark:text-[var(--black-color-2)]
-                    '>{t('heroSlogan')}</p>
+                    '>{t('heroSlogan')}</motion.p>
 
                 </div>
 
-                <div className='w-3xl max-w-full grid grid-cols-2 gap-2.5 max-[580px]:grid-cols-1'>
+                <motion.div 
+                    variants={Animations.addAnimationToChildOnlyVariants} 
+                    className='w-3xl max-w-full grid grid-cols-2 gap-2.5 max-[580px]:grid-cols-1'
+                >
 
                     {statisticsData.map(card => (
-                        <div key={card.id} className='p-2.5 flex items-center gap-2.5 bg-[var(--gray-color-3)] rounded-md'>
+                        <motion.div 
+                            variants={card.id % 2 === 0 ? Animations.toLeftVariants : Animations.toRightVariants}
+                            key={card.id} 
+                            className='p-2.5 flex items-center gap-2.5 bg-[var(--gray-color-3)] rounded-md'
+                        >
 
                             <div className={`p-2.5 rounded-md text-3xl bg-[var(--gray-color-1)]`}>
                                 {card.icon}
@@ -100,14 +119,14 @@ export default function Hero() {
                                 <p className='text-base font-medium text-[var(--gray-color-2)]'>{t(card.title)}</p>
                             </div>
 
-                        </div>
+                        </motion.div>
                     ))}
 
-                </div>
+                </motion.div>
 
             </div>
 
-        </section>
+        </motion.section>
 
     </React.Fragment>
 

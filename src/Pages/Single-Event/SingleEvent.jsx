@@ -11,11 +11,12 @@ import { useQuery } from '@tanstack/react-query';
 import errorSVG from '../../Assets/JSON/wrong.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { bookEventFun, resetBookingState } from '../../redux/bookingSlice';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import ResponsePage from '../../Components/Status-Page/ResponsePage';
 import FullLoading from '../../Components/Loading/FullLoading';
 import { useTranslation } from 'react-i18next';
 import OutStockEvent from '../../Components/Event-Card/OutStockEvent';
+import Animations from '../../Animations/Animations';
 
 export default function SingleEvent() {
 
@@ -116,19 +117,26 @@ export default function SingleEvent() {
         {!isError && isLoading && <LoadingSingleEvent />}
 
         {!isError && !isLoading && data && 
-            <section className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10'>
+            <motion.section
+                variants={Animations.addAnimationToChildOnlyVariants}
+                initial='hidden' whileInView={'visible'} viewport={{once: true}}
+                className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10 overflow-hidden'
+            >
 
-                <div className='
+                <motion.div variants={Animations.scaleVariants} className='
                     w-full min-h-60 max-[630px]:min-h-fit rounded-md bg-[var(--gray-color)] border border-[var(--gray-color-3)]
                 '>
                     <img 
                         className='w-full max-h-128 max-[630px]:min-h-fit object-cover rounded-md' 
                         src={data.image} alt={`${data.name} Image`} />
-                </div>
+                </motion.div>
 
                 <div className='grid grid-cols-10 gap-5 max-[965px]:grid-cols-11 max-[840px]:grid-cols-1'>
 
-                    <div className='col-span-7 flex flex-col gap-5 max-[840px]:col-span-1'>
+                    <motion.div 
+                        variants={Animations.toRightVariants} 
+                        className='col-span-7 flex flex-col gap-5 max-[840px]:col-span-1'
+                    >
 
                         <h3 className='text-3xl font-bold text-[var(--black-color-2)] max-[440px]:text-2xl'>{data.name}</h3>
 
@@ -167,9 +175,12 @@ export default function SingleEvent() {
 
                         <p className='text-base font-medium text-[var(--black-color-2)] max-[440px]:text-sm'>{data.slogan}</p>
 
-                    </div>
+                    </motion.div>
 
-                    <div className='col-span-3 max-[965px]:col-span-4 max-[840px]:col-span-1'>
+                    <motion.div 
+                        variants={Animations.toLeftVariants} 
+                        className='col-span-3 max-[965px]:col-span-4 max-[840px]:col-span-1'
+                    >
 
                         <div className='relative w-full rounded-md bg-[var(--gray-color-3)] p-5 flex flex-col gap-5 overflow-hidden'>
 
@@ -218,11 +229,11 @@ export default function SingleEvent() {
 
                         </div>
 
-                    </div>
+                    </motion.div>
 
                 </div>
 
-            </section>
+            </motion.section>
         }
 
         {!isLoading && isError && <FullError icon={errorSVG} msg={'errorFetchMessage'} isRed={true} />}

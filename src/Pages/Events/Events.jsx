@@ -10,6 +10,8 @@ import LoadingCard from './../../Components/Event-Card/LoadingCard';
 import errorSVG from '../../Assets/JSON/wrong.json';
 import warnSVG from '../../Assets/JSON/warning.json';
 import { BiCategory, BiFilterAlt } from 'react-icons/bi'
+import { AnimatePresence, motion } from 'framer-motion';
+import Animations from '../../Animations/Animations'
 
 export default function Events() {
 
@@ -43,23 +45,31 @@ export default function Events() {
 
     return <React.Fragment>
 
-        <section className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10'>
+        <motion.section
+            variants={Animations.addAnimationToChildOnlyVariants}
+            initial='hidden' animate={'visible'}
+            className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10 overflow-hidden'
+        >
 
             <div className='w-full flex flex-wrap items-center justify-between gap-5'>
 
-                <Title title={'eventsWord'} />
+                <motion.div variants={Animations.toRightVariants}><Title title={'eventsWord'} /></motion.div>
 
                 <div className='flex flex-wrap items-center gap-2.5'>
 
-                    <Filter 
-                        data={filterData} icon={<BiFilterAlt />} width={'min-w-48'} 
-                        currentFilter={eventType} setCurrentFilter={setEventType} 
-                    />
+                    <motion.div variants={Animations.toTopVariants}>
+                        <Filter 
+                            data={filterData} icon={<BiFilterAlt />} width={'min-w-48'} 
+                            currentFilter={eventType} setCurrentFilter={setEventType} 
+                        />
+                    </motion.div>
 
-                    <Filter 
-                        data={limitPerPage} icon={<BiCategory />} width={'min-w-28'} 
-                        currentFilter={limitEvents} setCurrentFilter={setLimitEvents} 
-                    />
+                    <motion.div variants={Animations.toBottomVariants}>
+                        <Filter 
+                            data={limitPerPage} icon={<BiCategory />} width={'min-w-28'} 
+                            currentFilter={limitEvents} setCurrentFilter={setLimitEvents} 
+                        />
+                    </motion.div>
 
                 </div>
 
@@ -75,11 +85,25 @@ export default function Events() {
 
             {!isError && !isLoading && data && data?.events.length > 0 && <React.Fragment>
 
-                <div className='w-full grid grid-cols-4 gap-5 max-[1235px]:grid-cols-3 max-[915px]:grid-cols-2 max-[630px]:grid-cols-1'>
+                <AnimatePresence mode='wait'>
+                    <motion.div 
+                        variants={Animations.addAnimationToChildOnlyVariants}
+                        className='
+                            w-full grid grid-cols-4 gap-5 
+                            max-[1235px]:grid-cols-3 max-[915px]:grid-cols-2 max-[630px]:grid-cols-1
+                        '
+                    >
 
-                    {data.events.map((card, idx) => <Card key={idx} data={card} />)}
+                        {data.events.map(card => <motion.div 
+                            key={card._id} 
+                            variants={Animations.scaleVariants}
+                            layout initial='hidden' animate='visible' exit={'exit'}
+                        >
+                            <Card data={card} />
+                        </motion.div>)}
 
-                </div>
+                    </motion.div>
+                </AnimatePresence>
 
                 <div className='w-full flex items-center justify-center'>
 
@@ -95,7 +119,7 @@ export default function Events() {
 
             {!isLoading && isError && <FullError icon={errorSVG} msg={'errorFetchMessage'} isRed={true} />}
 
-        </section>
+        </motion.section>
 
     </React.Fragment>
 

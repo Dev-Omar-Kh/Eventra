@@ -11,9 +11,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FiEdit } from 'react-icons/fi';
 import { IoBanSharp } from 'react-icons/io5';
 import PaginationList from '../../Components/Pagination-List/PaginationList';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import ResponsePage from '../../Components/Status-Page/ResponsePage';
 import FullLoading from '../../Components/Loading/FullLoading';
+import Animations from '../../Animations/Animations';
 
 export default function AdminPanel() {
 
@@ -120,93 +121,104 @@ export default function AdminPanel() {
             message={t('deleteEventMessage')}
         />
 
-        <section className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10'>
+        <AnimatePresence mode='wait'>
+            <motion.section
+                variants={Animations.addAnimationToChildOnlyVariants} key={currentPage}
+                initial='hidden' animate={'visible'}
+                className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10 overflow-hidden'
+            >
 
-            <div className='w-full flex items-center justify-between flex-wrap gap-5'>
+                <motion.div
+                    variants={Animations.addAnimationToChildOnlyVariants}
+                    className='w-full flex items-center justify-between flex-wrap gap-5'
+                >
 
-                <Title title={'eventsManagementWord'} />
+                    <motion.div variants={Animations.toRightVariants}><Title title={'eventsManagementWord'} /></motion.div>
 
-                <Link to={'add-event'} className='
-                    px-5 py-2.5 flex items-center gap-2.5 rounded-md bg-[var(--blue-color)]
-                    text-base text-[var(--salt-color)] dark:text-[var(--black-color-2)] font-medium cursor-pointer
+                    <motion.div variants={Animations.toLeftVariants}>
+                        <Link to={'add-event'} className='
+                            px-5 py-2.5 flex items-center gap-2.5 rounded-md bg-[var(--blue-color)]
+                            text-base text-[var(--salt-color)] dark:text-[var(--black-color-2)] font-medium cursor-pointer
+                        '>
+                            <IoIosAddCircleOutline className='text-xl' />
+                            <p>{t('addEventWord')}</p>
+                        </Link>
+                    </motion.div>
+
+                </motion.div>
+
+                <motion.div variants={Animations.scaleVariants} className='
+                    w-full rounded-md bg-[var(--salt-color)] shadow-[0_0px_10px_var(--light-black-opacity-color)] 
+                    border border-solid border-[var(--gray-color-3)] overflow-x-auto hidden_scroll
                 '>
-                    <IoIosAddCircleOutline className='text-xl' />
-                    <p>{t('addEventWord')}</p>
-                </Link>
 
-            </div>
+                    <Table data={data?.events} 
+                        columns={['eventWord', 'dateWord', 'locationWord', 'viewEventsWord']}
+                        actions={true} emptyMessage="noEventsYet" emptyIcon={warningSVG}
+                        isLoading={isLoading} isError={isError}
+                        renderRow={(event) => (
 
-            <div className='
-                w-full rounded-md bg-[var(--salt-color)] shadow-[0_0px_10px_var(--light-black-opacity-color)] 
-                border border-solid border-[var(--gray-color-3)] overflow-x-auto hidden_scroll
-            '>
+                            <React.Fragment>
 
-                <Table data={data?.events} 
-                    columns={['eventWord', 'dateWord', 'locationWord', 'viewEventsWord']}
-                    actions={true} emptyMessage="noEventsYet" emptyIcon={warningSVG}
-                    isLoading={isLoading} isError={isError}
-                    renderRow={(event) => (
+                                <td className='p-2.5 whitespace-nowrap'>{event.name}</td>
 
-                        <React.Fragment>
+                                <td className={`
+                                    ${i18n.language === 'en' ? 'border-l' : 'border-r'} 
+                                    border-solid border-[var(--gray-color-1)] p-2.5 whitespace-nowrap
+                                `}>{event.date.split('T')[0]}</td>
 
-                            <td className='p-2.5 whitespace-nowrap'>{event.name}</td>
+                                <td className={`
+                                    ${i18n.language === 'en' ? 'border-l' : 'border-r'} 
+                                    border-solid border-[var(--gray-color-1)] p-2.5 whitespace-nowrap
+                                `}>{event.location}</td>
 
-                            <td className={`
-                                ${i18n.language === 'en' ? 'border-l' : 'border-r'} 
-                                border-solid border-[var(--gray-color-1)] p-2.5 whitespace-nowrap
-                            `}>{event.date.split('T')[0]}</td>
+                                <td className={`
+                                    ${i18n.language === 'en' ? 'border-l' : 'border-r'} 
+                                    border-solid border-[var(--gray-color-1)] p-2.5 whitespace-nowrap
+                                `}>
+                                    <Link 
+                                        to={`/events/single-event/${event._id}`}
+                                        className='flex items-center justify-center gap-1 cursor-pointer text-[var(--blue-color)]'
+                                    >
+                                        <p>{t('viewEventWord')}</p>
+                                        <IoIosArrowForward className={`${i18n.language === 'ar' ? 'rotate-y-180' : ''}`} />
+                                    </Link>
+                                </td>
 
-                            <td className={`
-                                ${i18n.language === 'en' ? 'border-l' : 'border-r'} 
-                                border-solid border-[var(--gray-color-1)] p-2.5 whitespace-nowrap
-                            `}>{event.location}</td>
+                            </React.Fragment>
 
-                            <td className={`
-                                ${i18n.language === 'en' ? 'border-l' : 'border-r'} 
-                                border-solid border-[var(--gray-color-1)] p-2.5 whitespace-nowrap
-                            `}>
-                                <Link 
-                                    to={`/events/single-event/${event._id}`}
-                                    className='flex items-center justify-center gap-1 cursor-pointer text-[var(--blue-color)]'
-                                >
-                                    <p>{t('viewEventWord')}</p>
-                                    <IoIosArrowForward className={`${i18n.language === 'ar' ? 'rotate-y-180' : ''}`} />
-                                </Link>
-                            </td>
+                        )}
+                        onActionClick={(event) => (
 
-                        </React.Fragment>
+                            <div className='flex items-center justify-center gap-2.5'>
 
-                    )}
-                    onActionClick={(event) => (
-
-                        <div className='flex items-center justify-center gap-2.5'>
-
-                            <Link to={`update-event-data/${event._id}`} className='
-                                p-2.5 rounded-md bg-[var(--gray-color-3)]
-                                text-[var(--blue-color)] cursor-pointer duration-300
-                                hover:bg-[var(--blue-color)] hover:text-[var(--salt-color)]
-                                dark:hover:text-[var(--black-color-2)]
-                            '><FiEdit /></Link>
-
-                            <button 
-                                onClick={() => handleDeleteClick(event)}
-                                className='
+                                <Link to={`update-event-data/${event._id}`} className='
                                     p-2.5 rounded-md bg-[var(--gray-color-3)]
-                                    text-[var(--red-color)] cursor-pointer duration-300
-                                    hover:bg-[var(--red-color)] hover:text-[var(--white-color)]
+                                    text-[var(--blue-color)] cursor-pointer duration-300
+                                    hover:bg-[var(--blue-color)] hover:text-[var(--salt-color)]
                                     dark:hover:text-[var(--black-color-2)]
-                            '><IoBanSharp /></button>
+                                '><FiEdit /></Link>
 
-                        </div>
+                                <button 
+                                    onClick={() => handleDeleteClick(event)}
+                                    className='
+                                        p-2.5 rounded-md bg-[var(--gray-color-3)]
+                                        text-[var(--red-color)] cursor-pointer duration-300
+                                        hover:bg-[var(--red-color)] hover:text-[var(--white-color)]
+                                        dark:hover:text-[var(--black-color-2)]
+                                '><IoBanSharp /></button>
 
-                    )}
-                />
+                            </div>
 
-            </div>
+                        )}
+                    />
 
-            <PaginationList data={data?.pagination} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                </motion.div>
 
-        </section>
+                <PaginationList data={data?.pagination} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+
+            </motion.section>
+        </AnimatePresence>
 
     </React.Fragment>
 

@@ -180,11 +180,16 @@ export default function AddEvent() {
             {errMsg && <ResponsePage type={false} msg={errMsg} />}
         </AnimatePresence>
 
-        <section className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10'>
+        <motion.section
+            variants={Animations.addAnimationToChildOnlyVariants}
+            initial='hidden' whileInView={'visible'} viewport={{once: true}}
+            className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10 overflow-hidden'
+        >
 
-            <Title title={'addEventWord'} />
+            <motion.div variants={Animations.toRightVariants}><Title title={'addEventWord'} /></motion.div>
 
-            <form 
+            <motion.form
+                variants={Animations.scaleVariants}
                 onSubmit={(e) => {window.scrollTo({ top: 0, behavior: 'smooth' }); formikObj.handleSubmit(e)}} 
                 className={`
                     relative
@@ -376,9 +381,9 @@ export default function AddEvent() {
 
                 </div>
 
-            </form>
+            </motion.form>
 
-        </section>
+        </motion.section>
 
     </React.Fragment>
 

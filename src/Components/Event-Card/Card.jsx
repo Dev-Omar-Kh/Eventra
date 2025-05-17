@@ -80,7 +80,7 @@ export default function Card({data}) {
             {eventLoading && <FullLoading />}
         </AnimatePresence>
 
-        <div className='relative rounded-md overflow-hidden bg-[var(--gray-color-3)] border border-[var(--gray-color-3)]'>
+        <div className='relative rounded-md overflow-hidden h-full bg-[var(--gray-color-3)] border border-[var(--gray-color-3)]'>
 
             {!data.isBooked && data.seatsNumber === 0 && <OutStockEvent />}
 

@@ -12,6 +12,8 @@ import warnSVG from '../../../Assets/JSON/warning.json';
 import errorSVG from '../../../Assets/JSON/wrong.json';
 import LoadingCard from '../../../Components/Event-Card/LoadingCard';
 import FullError from '../../../Components/Error/FullError';
+import Animations from '../../../Animations/Animations';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function LatestEvents() {
 
@@ -33,16 +35,22 @@ export default function LatestEvents() {
 
     return <React.Fragment>
 
-        <section className='w-full py-[3.125rem] p_x flex flex-col gap-10'>
+        <motion.section
+            variants={Animations.addAnimationToChildOnlyVariants}
+            initial='hidden' whileInView={'visible'} viewport={{once: true}}
+            className='w-full py-[3.125rem] p_x flex flex-col gap-10 overflow-hidden'
+        >
 
         <div className='w-full flex flex-wrap items-center justify-between gap-5'>
 
-            <Title title={'latestEventsWord'} />
+            <motion.div variants={Animations.toRightVariants}><Title title={'latestEventsWord'} /></motion.div>
 
-            <Filter 
-                data={filterData} icon={<BiFilterAlt />} width={'min-w-48'} 
-                currentFilter={eventType} setCurrentFilter={setEventType} 
-            />
+            <motion.div variants={Animations.toLeftVariants}>
+                <Filter 
+                    data={filterData} icon={<BiFilterAlt />} width={'min-w-48'} 
+                    currentFilter={eventType} setCurrentFilter={setEventType} 
+                />
+            </motion.div>
 
         </div>
 
@@ -56,11 +64,26 @@ export default function LatestEvents() {
 
         {!isError && !isLoading && data && data?.events.length > 0 && <React.Fragment>
 
-            <div className='w-full grid grid-cols-4 gap-5 max-[1235px]:grid-cols-3 max-[915px]:grid-cols-2 max-[630px]:grid-cols-1'>
+            <AnimatePresence mode='wait'>
+                <motion.div 
+                    variants={Animations.addAnimationToChildOnlyVariants}
+                    className='
+                        w-full grid grid-cols-4 gap-5 
+                        max-[1235px]:grid-cols-3 max-[915px]:grid-cols-2 max-[630px]:grid-cols-1
+                    '
+                >
 
-                {data.events.map((card, idx) => <Card key={idx} data={card} />)}
+                    {data.events.map(card => <motion.div 
+                        key={card._id} 
+                        variants={Animations.scaleVariants}
+                        layout initial='hidden' whileInView='visible' exit={'exit'}
+                        viewport={{once: true}}
+                    >
+                        <Card data={card} />
+                    </motion.div>)}
 
-            </div>
+                </motion.div>
+            </AnimatePresence>
 
             <div className='w-full flex justify-end'>
                 <Link
@@ -83,7 +106,7 @@ export default function LatestEvents() {
 
         {!isLoading && isError && <FullError icon={errorSVG} msg={'errorFetchMessage'} isRed={true} />}
 
-        </section>
+        </motion.section>
 
     </React.Fragment>
 

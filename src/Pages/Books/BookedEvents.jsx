@@ -9,9 +9,10 @@ import WarnPopUp from './../../Components/Pop-Up/WarnPopUp';
 import { Axios, bookEvent } from '../../API/Api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { IoBanSharp } from 'react-icons/io5';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import ResponsePage from '../../Components/Status-Page/ResponsePage';
 import FullLoading from '../../Components/Loading/FullLoading';
+import Animations from '../../Animations/Animations';
 
 export default function BookedEvents() {
 
@@ -112,23 +113,32 @@ export default function BookedEvents() {
             message={t('deleteBookedEventMessage')}
         />
 
-        <section className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10'>
+        <motion.section
+            variants={Animations.addAnimationToChildOnlyVariants}
+            initial='hidden' animate='visible'
+            className='w-full px-[4.5%] py-10 pt-[8.05rem] flex flex-col gap-10 overflow-hidden'
+        >
 
-            <div className='w-full flex items-center justify-between flex-wrap gap-5'>
+            <motion.div
+                variants={Animations.addAnimationToChildOnlyVariants}
+                className='w-full flex items-center justify-between flex-wrap gap-5'
+            >
 
-                <Title title={'bookedEventsWord'} />
+                <motion.div variants={Animations.toRightVariants}><Title title={'bookedEventsWord'} /></motion.div>
 
-                <Link to={'/events'} className='
-                    px-5 py-2.5 flex items-center gap-2.5 rounded-md bg-[var(--blue-color)]
-                    text-base text-[var(--salt-color)] dark:text-[var(--black-color-2)] font-medium cursor-pointer
-                '>
-                    <p>{t('exploreEventsWord')}</p>
-                    <IoIosArrowForward className='text-xl rtl:rotate-180' />
-                </Link>
+                <motion.div variants={Animations.toLeftVariants}>
+                    <Link to={'/events'} className='
+                        px-5 py-2.5 flex items-center gap-2.5 rounded-md bg-[var(--blue-color)]
+                        text-base text-[var(--salt-color)] dark:text-[var(--black-color-2)] font-medium cursor-pointer
+                    '>
+                        <p>{t('exploreEventsWord')}</p>
+                        <IoIosArrowForward className='text-xl rtl:rotate-180' />
+                    </Link>
+                </motion.div>
 
-            </div>
+            </motion.div>
 
-            <div className='
+            <motion.div variants={Animations.scaleVariants} className='
                 w-full rounded-md bg-[var(--salt-color)] shadow-[0_0px_10px_var(--light-black-opacity-color)] 
                 border border-solid border-[var(--gray-color-3)] overflow-x-auto hidden_scroll
             '>
@@ -187,9 +197,9 @@ export default function BookedEvents() {
                     )}
                 />
 
-            </div>
+            </motion.div>
 
-        </section>
+        </motion.section>
 
     </React.Fragment>
 
